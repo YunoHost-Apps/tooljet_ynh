@@ -1,3 +1,6 @@
+* This app requites a full dedicated domain (or subdomain).
+* SSO does *not* work.
+
 * Any known limitations, constrains or stuff not working, such as (but not limited to):
     * requiring a full dedicated domain ?
     * architectures not supported ?
