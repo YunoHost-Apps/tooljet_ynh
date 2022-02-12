@@ -107,8 +107,21 @@ ynh_install_app_dependencies $pkg_dependencies
 #=================================================
 # SPECIFIC UPGRADE
 #=================================================
-# ...
+# BUILD THE APPLICATION
 #=================================================
+ynh_script_progression --message="Building ToolJet..." --time --weight=10
+
+pushd $final_path
+	ynh_use_nodejs
+
+	# The version shipped by default with n does not work, there is a 
+	# wierd dependency issue about unsupported platform and fsevent.
+	# See https://github.com/ToolJet/ToolJet/pull/1752
+	$ynh_npm install -g npm@7.20.0
+
+	ynh_exec_warn_less ynh_exec_as $app $ynh_node_load_PATH $ynh_npm install -f
+	ynh_exec_warn_less ynh_exec_as $app $ynh_node_load_PATH $ynh_npm run build
+popd
 
 #=================================================
 # UPDATE A CONFIG FILE
@@ -119,6 +132,16 @@ ynh_add_config --template=".env.example" --destination="$final_path/.env"
 
 chmod 400 "$final_path/.env"
 chown $app:$app "$final_path/.env"
+
+#=================================================
+# BUILD THE DATABASE
+#=================================================
+ynh_script_progression --message="Building ToolJet database..." --time --weight=1
+
+pushd $final_path
+	# Build the database once the configuration is set
+	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm run db:migrate
+popd
 
 #=================================================
 # SETUP SYSTEMD
