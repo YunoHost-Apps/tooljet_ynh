@@ -127,9 +127,10 @@ ynh_script_progression --message="Building ToolJet..." --time --weight=1
 
 pushd $final_path
 	ynh_use_nodejs
+	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm install npm@7.20.0
 
 	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm install -f
-# Needed ?
+
 	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm install --prefix plugins -f
 	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm install --prefix server -f
 	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm install --prefix frontend -f
@@ -145,7 +146,7 @@ popd
 #=================================================
 ynh_script_progression --message="Adding a configuration file..." --time --weight=1
 
-# package_linter don't like `openssl rand -hex`...
+# package_linter don't like `openssl` rand :(
 # Use ynh_string_random and some magic stuff to get a 32 bytes hex-only string
 lockbox_master_key=$(ynh_string_random --length=32 | xxd -p | head -n1 | cut -c 1-32)
 ynh_app_setting_set --app="$app" --key=lockbox_master_key --value="$lockbox_master_key"
