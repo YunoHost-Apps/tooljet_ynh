@@ -29,7 +29,8 @@ ynh_script_progression --message="Loading installation settings..." --time --wei
 app=$YNH_APP_INSTANCE_NAME
 
 domain=$(ynh_app_setting_get --app=$app --key=domain)
-path_url="/"
+path_url=$(ynh_app_setting_get --app=$app --key=path)
+port=$(ynh_app_setting_get --app=$app --key=port)
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 db_user=$db_name
@@ -41,6 +42,10 @@ ynh_script_progression --message="Validating restoration parameters..." --time -
 
 test ! -d $final_path \
 	|| ynh_die --message="There is already a directory: $final_path "
+
+# FIXME: Choose another port instead of dying...
+ynh_port_available --port=$port \
+    || ynh_die --message="Port $port is needs to be available for this app"
 
 #=================================================
 # STANDARD RESTORATION STEPS
