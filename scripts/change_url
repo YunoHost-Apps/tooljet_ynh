@@ -26,13 +26,14 @@ app=$YNH_APP_INSTANCE_NAME
 #=================================================
 ynh_script_progression --message="Loading installation settings..." --time --weight=1
 
-# Needed for helper "ynh_add_nginx_config"
+# Needed for .env and nginx.conf
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-
-# Add settings here as needed by your application
-#db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-#db_user=$db_name
-#db_pwd=$(ynh_app_setting_get --app=$app --key=db_pwd)
+port=$(ynh_app_setting_get --app=$app --key=port)
+db_name=$(ynh_app_setting_get --app=$app --key=db_name)
+db_user=db_name
+db_pwd=$(ynh_app_setting_get --app=$app --key=psqlpwd)
+lockbox_master_key=$(ynh_app_setting_get --app=$app --key=lockbox_master_key)
+secret_key_base=$(ynh_app_setting_get --app=$app --key=secret_key_base)
 
 #=================================================
 # BACKUP BEFORE CHANGE URL THEN ACTIVE TRAP
@@ -108,8 +109,14 @@ fi
 #=================================================
 # SPECIFIC MODIFICATIONS
 #=================================================
-# ...
+# UPDATE A CONFIG FILE
 #=================================================
+ynh_script_progression --message="Updating a configuration file..." --time --weight=1
+
+ynh_add_config --template=".env.example" --destination="$final_path/.env"
+
+chmod 400 "$final_path/.env"
+chown $app:$app "$final_path/.env"
 
 #=================================================
 # GENERIC FINALISATION
