@@ -29,6 +29,7 @@ ynh_script_progression --message="Loading installation settings..." --time --wei
 # Needed for .env and nginx.conf
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 port=$(ynh_app_setting_get --app=$app --key=port)
+domain=$(ynh_app_setting_get --app=$app --key=domain)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 db_user=db_name
 db_pwd=$(ynh_app_setting_get --app=$app --key=psqlpwd)
