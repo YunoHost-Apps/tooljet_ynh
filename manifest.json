@@ -18,7 +18,7 @@
         "name": "Tagadda"
     },
     "requirements": {
-        "yunohost": ">= 4.3.0"
+        "yunohost": ">= 11"
     },
     "multi_instance": true,
     "services": [
