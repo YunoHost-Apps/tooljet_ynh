@@ -5,7 +5,7 @@
     "description": {
         "en": "Open-source low-code framework for building React-based web applications and internal tools"
     },
-    "version": "1.11.0~ynh1",
+    "version": "1.12.1~ynh1",
     "url": "https://tooljet.com/",
     "upstream": {
         "license": "AGPL-3.0",
