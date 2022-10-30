@@ -36,7 +36,6 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 
 **Shipped version:** 1.26.0~ynh1
 
-
 ## Screenshots
 
 ![Screenshot of ToolJet](./doc/screenshots/example.png)
