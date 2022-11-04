@@ -1,5 +1,5 @@
-SOURCE_URL=https://github.com/ToolJet/ToolJet/archive/v1.28.0.tar.gz
-SOURCE_SUM=dea68fa8a4ca314cdb9addae38990e1126b918bfbb7cbfee124e6599b32de400
+SOURCE_URL=https://github.com/ToolJet/ToolJet/archive/v1.28.3.tar.gz
+SOURCE_SUM=2993a88e94b78ad66720cc9bcc689d6350dbad0d1392373ad877ae0674247c47
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
