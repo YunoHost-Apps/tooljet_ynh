@@ -7,7 +7,7 @@
 # dependencies used by the app
 pkg_dependencies="postgresql postgresql-contrib libpq-dev"
 
-NODEJS_VERSION="14"
+NODEJS_VERSION="18"
 
 main_domain=$(cat /etc/yunohost/current_host)
 
