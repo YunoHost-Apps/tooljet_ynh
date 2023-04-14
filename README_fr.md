@@ -5,15 +5,16 @@ It shall NOT be edited by hand.
 
 # ToolJet pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/tooljet.svg)](https://dash.yunohost.org/appci/app/tooljet) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)  
+[![Niveau d’intégration](https://dash.yunohost.org/integration/tooljet.svg)](https://dash.yunohost.org/appci/app/tooljet) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
+
 [![Installer ToolJet avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
 
 *[Read this readme in english.](./README.md)*
 
-> *Ce package vous permet d'installer ToolJet rapidement et simplement sur un serveur YunoHost.
-Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter.*
+> *Ce package vous permet d’installer ToolJet rapidement et simplement sur un serveur YunoHost.
+Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l’installer et en profiter.*
 
-## Vue d'ensemble
+## Vue d’ensemble
 
 ToolJet is an open-source low-code framework to build and deploy internal tools quickly without much effort from the engineering teams. You can connect to your data sources, such as databases (like PostgreSQL, MongoDB, Elasticsearch, etc), API endpoints (ToolJet supports importing OpenAPI spec & OAuth2 authorization), and external services (like Stripe, Slack, Google Sheets, Airtable) and use our pre-built UI widgets to build internal tools.
 
@@ -34,11 +35,11 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 - *Doesn't store data:* ToolJet acts only as a proxy and doesn't store any data.
 
 
-**Version incluse :** 1.31.2~ynh1
+**Version incluse :** 2.4.3~ynh1
 
-## Captures d'écran
+## Captures d’écran
 
-![Capture d'écran de ToolJet](./doc/screenshots/example.png)
+![Capture d’écran de ToolJet](./doc/screenshots/example.png)
 
 ## Avertissements / informations importantes
 
@@ -54,9 +55,9 @@ TODO
 
 ## Documentations et ressources
 
-* Site officiel de l'app : <https://tooljet.com/>
+* Site officiel de l’app : <https://tooljet.com/>
 * Documentation officielle utilisateur : <https://docs.tooljet.com/docs/intro>
-* Dépôt de code officiel de l'app : <https://github.com/ToolJet/ToolJet>
+* Dépôt de code officiel de l’app : <https://github.com/ToolJet/ToolJet>
 * Documentation YunoHost pour cette app : <https://yunohost.org/app_tooljet>
 * Signaler un bug : <https://github.com/YunoHost-Apps/tooljet_ynh/issues>
 
@@ -72,4 +73,4 @@ ou
 sudo yunohost app upgrade tooljet -u https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing --debug
 ```
 
-**Plus d'infos sur le packaging d'applications :** <https://yunohost.org/packaging_apps>
+**Plus d’infos sur le packaging d’applications :** <https://yunohost.org/packaging_apps>
