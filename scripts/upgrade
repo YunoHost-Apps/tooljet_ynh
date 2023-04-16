@@ -120,7 +120,7 @@ pushd $final_path
 	# The version shipped by default with n does not work, there is a 
 	# wierd dependency issue about unsupported platform and fsevent.
 	# See https://github.com/ToolJet/ToolJet/pull/1752
-	$ynh_npm install -g npm@$NPM_VERSION
+	$ynh_npm install -g npm@"$NPM_VERSION"
 
 	ynh_exec_warn_less ynh_exec_as $app $ynh_node_load_PATH $ynh_npm install -f
 	ynh_exec_warn_less ynh_exec_as $app $ynh_node_load_PATH $ynh_npm run build

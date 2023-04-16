@@ -8,7 +8,7 @@
 pkg_dependencies="postgresql postgresql-contrib libpq-dev"
 
 NODEJS_VERSION="18"
-NPM_VERSION="8.11.0"
+NPM_VERSION=">=8.11"
 
 main_domain=$(cat /etc/yunohost/current_host)
 
