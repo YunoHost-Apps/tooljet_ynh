@@ -41,7 +41,7 @@ ram.runtime = "50M" # FIXME: replace with an **estimate** minimum ram requiremen
 
         [resources.sources.main]
         url = "https://github.com/ToolJet/ToolJet/archive/v2.16.1.tar.gz"
-        sha256 = "f3ba9112ba4afeabeda451ce302afb3fa431ba7f030702cc67457c37bc104a9"
+        sha256 = "f3ba9112ba4afeabeda451ce302afb3fa431ba7f030702cc67457c37bc104a9f"
 
         autoupdate.strategy = "latest_github_tag"
 
