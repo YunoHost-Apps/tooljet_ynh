@@ -57,7 +57,7 @@ ram.runtime = "50M" # FIXME: replace with an **estimate** minimum ram requiremen
     main.default = 8095
 
     [resources.apt]
-    packages = "postgresql, postgresql-contrib, libpq-dev"
+    packages = "postgresql, postgresql-contrib"
 
     [resources.database]
     type = "postgresql"
