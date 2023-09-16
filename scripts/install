@@ -10,110 +10,28 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# MANAGE SCRIPT FAILURE
-#=================================================
-
-ynh_clean_setup () {
-	### Remove this function if there's nothing to clean before calling the remove script.
-	true
-}
-# Exit if an error occurs during the execution of the script
-ynh_abort_if_errors
-
-#=================================================
-# RETRIEVE ARGUMENTS FROM THE MANIFEST
-#=================================================
-
-domain=$YNH_APP_ARG_DOMAIN
-path_url="/"
-is_public=$YNH_APP_ARG_IS_PUBLIC
-
-app=$YNH_APP_INSTANCE_NAME
-
-#=================================================
-# CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
-#=================================================
-### About --weight and --time
-### ynh_script_progression will show to your final users the progression of each scripts.
-### In order to do that, --weight will represent the relative time of execution compared to the other steps in the script.
-### --time is a packager option, it will show you the execution time since the previous call.
-### This option should be removed before releasing your app.
-### Use the execution time, given by --time, to estimate the weight of a step.
-### A common way to do it is to set a weight equal to the execution time in second +1.
-### The execution time is given for the duration since the previous call. So the weight should be applied to this previous call.
-ynh_script_progression --message="Validating installation parameters..." --time --weight=1
-
-### If the app uses NGINX as web server (written in HTML/PHP in most cases), the final path should be "/var/www/$app".
-### If the app provides an internal web server (or uses another application server such as uWSGI), the final path should be "/opt/yunohost/$app"
-final_path=/var/www/$app
-test ! -e "$final_path" || ynh_die --message="This path already contains a folder"
-
-# Register (book) web path
-ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
-
-#=================================================
-# STORE SETTINGS FROM MANIFEST
-#=================================================
-ynh_script_progression --message="Storing installation settings..." --time --weight=1
-
-ynh_app_setting_set --app=$app --key=domain --value=$domain
-ynh_app_setting_set --app=$app --key=path --value=$path_url
-
-#=================================================
-# STANDARD MODIFICATIONS
-#=================================================
-# FIND AND OPEN A PORT
-#=================================================
-ynh_script_progression --message="Finding an available port..." --time --weight=1
-# Find an available port
-port=$(ynh_find_port --port=8095)
-ynh_app_setting_set --app=$app --key=port --value=$port
-
-#=================================================
 # INSTALL DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Installing dependencies..." --time --weight=1
+ynh_script_progression --message="Installing dependencies..." --weight=1
 
-ynh_install_app_dependencies $pkg_dependencies
 ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
-
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Configuring system user..." --time --weight=1
-
-# Create a system user
-ynh_system_user_create --username=$app --home_dir="$final_path"
-
-#=================================================
-# CREATE A POSTGRESQL DATABASE
-#=================================================
-ynh_script_progression --message="Creating a PostgreSQL database..." --time --weight=1
-
-ynh_psql_test_if_first_run
-
-db_name=$(ynh_sanitize_dbid --db_name=$app)
-db_user=$db_name
-ynh_app_setting_set --app=$app --key=db_name --value=$db_name
-ynh_psql_setup_db --db_user=$db_user --db_name=$db_name
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Setting up source files..." --time --weight=1
+ynh_script_progression --message="Setting up source files..." --weight=1
 
-ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 # Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$final_path"
+ynh_setup_source --dest_dir="$install_dir"
 
-chmod 750 "$final_path"
-chmod -R o-rwx "$final_path"
-chown -R $app:www-data "$final_path"
+chmod 750 "$install_dir"
+chmod -R o-rwx "$install_dir"
+chown -R $app:$app "$install_dir"
 
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring NGINX web server..." --time --weight=1
+ynh_script_progression --message="Configuring NGINX web server..." --weight=1
 
 # Create a dedicated NGINX config
 ynh_add_nginx_config
@@ -123,44 +41,66 @@ ynh_add_nginx_config
 #=================================================
 # BUILD THE APPLICATION
 #=================================================
-ynh_script_progression --message="Building ToolJet..." --time --weight=1
+ynh_script_progression --message="Building ToolJet..." --weight=10
 
-pushd $final_path
+pushd $install_dir
 	ynh_use_nodejs
 
-	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm install
-# Needed ?
-	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm install --prefix plugins
-	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm install --prefix server
-	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm install --prefix frontend
+	# The version shipped by default with n does not work, there is a 
+	# weird dependency issue about unsupported platform and fsevent.
+	# See https://github.com/ToolJet/ToolJet/pull/1752
+	$ynh_npm install npm@"$NPM_VERSION" --location=global
 
-	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm run build
-
-	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm run db:create
-	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm run db:migrate
+	ynh_exec_warn_less ynh_exec_as $app $ynh_node_load_PATH $ynh_npm install -f
+	ynh_exec_warn_less ynh_exec_as $app $ynh_node_load_PATH $ynh_npm run build
 popd
+
+# Cleanup after install
+ynh_secure_remove --file="$install_dir/.cache"
+ynh_secure_remove --file="$install_dir/.npm/_cacache"
+ynh_secure_remove --file="$install_dir/node_modules"
+ynh_secure_remove --file="$install_dir/frontend/node_modules"
+
+chmod 750 "$install_dir"
+chmod -R o-rwx "$install_dir"
+chown -R $app:$app "$install_dir"
+chown $app:www-data -R "$install_dir/frontend/build"
+chown $app:www-data "$install_dir/frontend/build"
+chown $app:www-data "$install_dir/frontend"
+chown $app:www-data "$install_dir"
 
 #=================================================
 # ADD A CONFIGURATION
 #=================================================
-ynh_script_progression --message="Adding a configuration file..." --time --weight=1
+ynh_script_progression --message="Adding a configuration file..." --weight=1
 
-# FIXME: package linter don't like openssl rand... Use ynh_string_random and some dirty hack to get a hex-only string
-lockbox_master_key=$(openssl rand -hex 32)
+# package_linter don't like `openssl` rand :(
+# Use ynh_string_random and some magic stuff to get a 32 bytes hex-only string
+lockbox_master_key=$(ynh_string_random --length=32 | xxd -p | head -n1 | cut -c 1-32)
 ynh_app_setting_set --app="$app" --key=lockbox_master_key --value="$lockbox_master_key"
 
-secret_key_base=$(openssl rand -hex 64)
+secret_key_base=$(ynh_string_random --length=64 | xxd -p | head -n1 | cut -c 1-64)
 ynh_app_setting_set --app="$app" --key=secret_key_base --value="$secret_key_base"
 
-ynh_add_config --template=".env.example" --destination="$final_path/.env"
+ynh_add_config --template=".env.example" --destination="$install_dir/.env"
 
-chmod 400 "$final_path/.env"
-chown $app:$app "$final_path/.env"
+chmod 400 "$install_dir/.env"
+chown $app:$app "$install_dir/.env"
+
+#=================================================
+# BUILD THE DATABASE
+#=================================================
+ynh_script_progression --message="Building ToolJet database..." --weight=1
+
+pushd $install_dir
+	# Build the database once the configuration is set
+	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm run db:migrate
+popd
 
 #=================================================
 # SETUP SYSTEMD
 #=================================================
-ynh_script_progression --message="Configuring a systemd service..." --time --weight=1
+ynh_script_progression --message="Configuring a systemd service..." --weight=1
 
 # Create a dedicated systemd config
 ynh_add_systemd_config
@@ -170,40 +110,20 @@ ynh_add_systemd_config
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --time --weight=1
+ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
 yunohost service add $app
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..." --time --weight=1
+ynh_script_progression --message="Starting a systemd service..." --weight=1
 
 # Start a systemd service
 ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
 
 #=================================================
-# SETUP SSOWAT
-#=================================================
-ynh_script_progression --message="Configuring permissions..." --time --weight=1
-
-# Make app public if necessary
-if [ $is_public -eq 1 ]
-then
-	# Everyone can access the app.
-	# The "main" permission is automatically created before the install script.
-	ynh_permission_update --permission="main" --add="visitors"
-fi
-
-#=================================================
-# RELOAD NGINX
-#=================================================
-ynh_script_progression --message="Reloading NGINX web server..." --time --weight=1
-
-ynh_systemd_action --service_name=nginx --action=reload
-
-#=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed" --time --last
+ynh_script_progression --message="Installation of $app completed" --last

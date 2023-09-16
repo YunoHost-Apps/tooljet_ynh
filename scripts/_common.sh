@@ -4,10 +4,10 @@
 # COMMON VARIABLES
 #=================================================
 
-# dependencies used by the app
-pkg_dependencies="postgresql postgresql-contrib libpq-dev"
+NODEJS_VERSION="18.3"
+NPM_VERSION="8.11.0"
 
-NODEJS_VERSION="14"
+main_domain=$(cat /etc/yunohost/current_host)
 
 #=================================================
 # PERSONAL HELPERS

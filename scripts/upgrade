@@ -9,69 +9,23 @@
 source _common.sh
 source /usr/share/yunohost/helpers
 
-#=================================================
-# LOAD SETTINGS
-#=================================================
-ynh_script_progression --message="Loading installation settings..." --time --weight=1
-
-app=$YNH_APP_INSTANCE_NAME
-
-domain=$(ynh_app_setting_get --app=$app --key=domain)
-path_url="/"
-final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-lockbox_master_key=$(ynh_app_setting_get --app=$app --key=lockbox_master_key)
-secret_key_base=$(ynh_app_setting_get --app=$app --key=secret_key_base)
-
-#=================================================
-# CHECK VERSION
-#=================================================
-
-### This helper will compare the version of the currently installed app and the version of the upstream package.
-### $upgrade_type can have 2 different values
-### - UPGRADE_APP if the upstream app version has changed
-### - UPGRADE_PACKAGE if only the YunoHost package has changed
-### ynh_check_app_version_changed will stop the upgrade if the app is up to date.
-### UPGRADE_APP should be used to upgrade the core app only if there's an upgrade to do.
 upgrade_type=$(ynh_check_app_version_changed)
-
-#=================================================
-# BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
-#=================================================
-ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --time --weight=1
-
-# Backup the current version of the app
-ynh_backup_before_upgrade
-ynh_clean_setup () {
-	# Restore it if the upgrade fails
-	ynh_restore_upgradebackup
-}
-# Exit if an error occurs during the execution of the script
-ynh_abort_if_errors
 
 #=================================================
 # STANDARD UPGRADE STEPS
 #=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Stopping a systemd service..." --time --weight=1
+ynh_script_progression --message="Stopping a systemd service..." --weight=1
 
 ynh_systemd_action --service_name=$app --action="stop" --log_path="/var/log/$app/$app.log"
 
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
 #=================================================
-#ynh_script_progression --message="Ensuring downward compatibility..." --time --weight=1
+#ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
 
 # Nothing to do yet...
-
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Making sure dedicated system user exists..." --time --weight=1
-
-# Create a dedicated user (if not existing)
-ynh_system_user_create --username=$app --home_dir="$final_path"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -79,51 +33,81 @@ ynh_system_user_create --username=$app --home_dir="$final_path"
 
 if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
-	ynh_script_progression --message="Upgrading source files..." --time --weight=1
+	ynh_script_progression --message="Upgrading source files..." --weight=1
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path"
+	ynh_setup_source --dest_dir="$install_dir"
 fi
 
-chmod 750 "$final_path"
-chmod -R o-rwx "$final_path"
-chown -R $app:www-data "$final_path"
+chmod 750 "$install_dir"
+chmod -R o-rwx "$install_dir"
+chown -R $app:$app "$install_dir"
+
+# Cleanup after install
+ynh_secure_remove --file="$install_dir/.cache"
+ynh_secure_remove --file="$install_dir/.npm/_cacache"
+ynh_secure_remove --file="$install_dir/node_modules"
+ynh_secure_remove --file="$install_dir/frontend/node_modules"
 
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Upgrading NGINX web server configuration..." --time --weight=1
+ynh_script_progression --message="Upgrading NGINX web server configuration..." --weight=1
 
 # Create a dedicated NGINX config
 ynh_add_nginx_config
 
 #=================================================
-# UPGRADE DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Upgrading dependencies..." --time --weight=1
-
-ynh_install_app_dependencies $pkg_dependencies
-
-#=================================================
 # SPECIFIC UPGRADE
 #=================================================
-# ...
+# BUILD THE APPLICATION
 #=================================================
+ynh_script_progression --message="Building ToolJet..." --weight=10
+
+pushd $install_dir
+	ynh_use_nodejs
+
+	# The version shipped by default with n does not work, there is a 
+	# wierd dependency issue about unsupported platform and fsevent.
+	# See https://github.com/ToolJet/ToolJet/pull/1752
+	$ynh_npm install npm@"$NPM_VERSION" --location=global
+
+	ynh_exec_warn_less ynh_exec_as $app $ynh_node_load_PATH $ynh_npm install -f
+	ynh_exec_warn_less ynh_exec_as $app $ynh_node_load_PATH $ynh_npm run build
+popd
+
+chmod 750 "$install_dir"
+chmod -R o-rwx "$install_dir"
+chown -R $app:$app "$install_dir"
+chown $app:www-data -R "$install_dir/frontend/build"
+chown $app:www-data "$install_dir/frontend/build"
+chown $app:www-data "$install_dir/frontend"
+chown $app:www-data "$install_dir"
 
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
-ynh_script_progression --message="Updating a configuration file..." --time --weight=1
+ynh_script_progression --message="Updating a configuration file..." --weight=1
 
-ynh_add_config --template=".env.example" --destination="$final_path/.env"
+ynh_add_config --template=".env.example" --destination="$install_dir/.env"
 
-chmod 400 "$final_path/.env"
-chown $app:$app "$final_path/.env"
+chmod 400 "$install_dir/.env"
+chown $app:$app "$install_dir/.env"
+
+#=================================================
+# BUILD THE DATABASE
+#=================================================
+ynh_script_progression --message="Building ToolJet database..." --weight=1
+
+pushd $install_dir
+	# Build the database once the configuration is set
+	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm run db:migrate
+popd
 
 #=================================================
 # SETUP SYSTEMD
 #=================================================
-ynh_script_progression --message="Upgrading systemd configuration..." --time --weight=1
+ynh_script_progression --message="Upgrading systemd configuration..." --weight=1
 
 # Create a dedicated systemd config
 ynh_add_systemd_config
@@ -133,26 +117,19 @@ ynh_add_systemd_config
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --time --weight=1
+ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
 yunohost service add $app
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..." --time --weight=1
+ynh_script_progression --message="Starting a systemd service..." --weight=1
 
 ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
-
-#=================================================
-# RELOAD NGINX
-#=================================================
-ynh_script_progression --message="Reloading NGINX web server..." --time --weight=1
-
-ynh_systemd_action --service_name=nginx --action=reload
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Upgrade of $app completed" --time --last
+ynh_script_progression --message="Upgrade of $app completed" --last

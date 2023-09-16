@@ -1,0 +1,62 @@
+packaging_format = 2
+
+id = "tooljet"
+name = "ToolJet"
+description.en = "Open-source low-code framework for building React-based web applications and internal tools"
+
+version = "2.16.1~ynh1"
+
+maintainers = ["Tagadda"]
+
+[upstream]
+license = "AGPL-3.0"
+website = "https://tooljet.com/"
+userdoc = "https://docs.tooljet.com/docs/intro"
+code = "https://github.com/ToolJet/ToolJet"
+cpe = "cpe:2.3:a:tooljet:tooljet"
+
+[integration]
+yunohost = ">= 11.2"
+architectures = "all"
+multi_instance = true
+ldap = false
+sso = false
+disk = "3G"
+ram.build = "3G"
+ram.runtime = "300M"
+
+[install]
+    [install.domain]
+    type = "domain"
+    full_domain = true
+
+    [install.init_main_permission]
+    type = "group"
+    default = "visitors"
+
+[resources]
+
+    [resources.sources]
+
+        [resources.sources.main]
+        url = "https://github.com/ToolJet/ToolJet/archive/v2.16.1.tar.gz"
+        sha256 = "f3ba9112ba4afeabeda451ce302afb3fa431ba7f030702cc67457c37bc104a9f"
+
+        autoupdate.strategy = "latest_github_tag"
+
+    [resources.system_user]
+    allow_email = true
+
+    [resources.install_dir]
+
+    [resources.permissions]
+    main.url = "/"
+
+    [resources.ports]
+    main.default = 8095
+
+    [resources.apt]
+    packages = "postgresql, postgresql-contrib"
+
+    [resources.database]
+    type = "postgresql"
