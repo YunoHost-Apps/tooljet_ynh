@@ -43,6 +43,12 @@ chmod 750 "$install_dir"
 chmod -R o-rwx "$install_dir"
 chown -R $app:$app "$install_dir"
 
+# Cleanup after install
+ynh_secure_remove --file="$install_dir/.cache"
+ynh_secure_remove --file="$install_dir/.npm/_cacache"
+ynh_secure_remove --file="$install_dir/node_modules"
+ynh_secure_remove --file="$install_dir/frontend/node_modules"
+
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
