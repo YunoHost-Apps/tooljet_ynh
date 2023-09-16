@@ -41,18 +41,6 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 
 ![Screenshot of ToolJet](./doc/screenshots/example.png)
 
-## Disclaimers / important information
-
-### After installation
-
-TODO
-
-### Limitations
-
-* Require YunoHost 11.
-* This app requires a full dedicated domain (or subdomain), with a signed certificate.
-* Single Sign-On and LDAP integration does *not* work.
-
 ## Documentation and resources
 
 * Official app website: <https://tooljet.com/>
