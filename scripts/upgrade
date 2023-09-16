@@ -88,10 +88,6 @@ then
 	ynh_setup_source --dest_dir="$install_dir"
 fi
 
-chmod 750 "$install_dir"
-chmod -R o-rwx "$install_dir"
-chown -R $app:www-data "$install_dir"
-
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
@@ -125,6 +121,14 @@ pushd $install_dir
 	ynh_exec_warn_less ynh_exec_as $app $ynh_node_load_PATH $ynh_npm install -f
 	ynh_exec_warn_less ynh_exec_as $app $ynh_node_load_PATH $ynh_npm run build
 popd
+
+chmod 750 "$install_dir"
+chmod -R o-rwx "$install_dir"
+chown -R $app:$app "$install_dir"
+chown $app:www-data -R "$install_dir/frontend/build"
+chown $app:www-data "$install_dir/frontend/build"
+chown $app:www-data "$install_dir/frontend"
+chown $app:www-data "$install_dir"
 
 #=================================================
 # UPDATE A CONFIG FILE

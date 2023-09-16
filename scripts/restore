@@ -28,7 +28,11 @@ ynh_restore_file --origin_path="$install_dir"
 
 chmod 750 "$install_dir"
 chmod -R o-rwx "$install_dir"
-chown -R $app:www-data "$install_dir"
+chown -R $app:$app "$install_dir"
+chown $app:www-data -R "$install_dir/frontend/build"
+chown $app:www-data "$install_dir/frontend/build"
+chown $app:www-data "$install_dir/frontend"
+chown $app:www-data "$install_dir"
 
 #=================================================
 # SPECIFIC RESTORATION
