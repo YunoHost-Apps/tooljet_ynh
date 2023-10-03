@@ -46,7 +46,6 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 * Official app website: <https://tooljet.com/>
 * Official user documentation: <https://docs.tooljet.com/docs/intro>
 * Upstream app code repository: <https://github.com/ToolJet/ToolJet>
-* YunoHost documentation for this app: <https://yunohost.org/app_tooljet>
 * Report a bug: <https://github.com/YunoHost-Apps/tooljet_ynh/issues>
 
 ## Developer info
