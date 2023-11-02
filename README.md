@@ -35,7 +35,7 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 - *Doesn't store data:* ToolJet acts only as a proxy and doesn't store any data.
 
 
-**Shipped version:** 2.22.1~ynh1
+**Shipped version:** 2.22.3~ynh1
 
 ## Screenshots
 
@@ -46,6 +46,7 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 * Official app website: <https://tooljet.com/>
 * Official user documentation: <https://docs.tooljet.com/docs/intro>
 * Upstream app code repository: <https://github.com/ToolJet/ToolJet>
+* YunoHost Store: <https://apps.yunohost.org/app/tooljet>
 * Report a bug: <https://github.com/YunoHost-Apps/tooljet_ynh/issues>
 
 ## Developer info
