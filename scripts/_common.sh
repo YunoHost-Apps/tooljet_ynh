@@ -4,8 +4,8 @@
 # COMMON VARIABLES
 #=================================================
 
-NODEJS_VERSION="18.3"
-NPM_VERSION="8.11.0"
+NODEJS_VERSION="18.18.2"
+NPM_VERSION="9.8.1"
 
 main_domain=$(cat /etc/yunohost/current_host)
 
