@@ -42,7 +42,7 @@ ram.runtime = "300M"
         url = "https://github.com/ToolJet/ToolJet/archive/refs/tags/v2.28.4.tar.gz"
         sha256 = "4c168a418a4dc4e788de4eb46c94309f1b84d029d952420e9b8288db1a922308"
 
-        autoupdate.strategy = "latest_github_tag"
+        autoupdate.strategy = "latest_github_release"
 
     [resources.system_user]
     allow_email = true
