@@ -34,8 +34,7 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 - *Secure:* All the credentials are securely encrypted using `aes-256-gcm`.
 - *Doesn't store data:* ToolJet acts only as a proxy and doesn't store any data.
 
-
-**Version incluse :** 2.30.2~ynh1
+**Version incluse :** 2.33.1~ynh1
 
 ## Captures d’écran
 
@@ -43,11 +42,11 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 
 ## Documentations et ressources
 
-* Site officiel de l’app : <https://tooljet.com/>
-* Documentation officielle utilisateur : <https://docs.tooljet.com/docs/intro>
-* Dépôt de code officiel de l’app : <https://github.com/ToolJet/ToolJet>
-* YunoHost Store: <https://apps.yunohost.org/app/tooljet>
-* Signaler un bug : <https://github.com/YunoHost-Apps/tooljet_ynh/issues>
+- Site officiel de l’app : <https://tooljet.com/>
+- Documentation officielle utilisateur : <https://docs.tooljet.com/docs/intro>
+- Dépôt de code officiel de l’app : <https://github.com/ToolJet/ToolJet>
+- YunoHost Store : <https://apps.yunohost.org/app/tooljet>
+- Signaler un bug : <https://github.com/YunoHost-Apps/tooljet_ynh/issues>
 
 ## Informations pour les développeurs
 
@@ -55,7 +54,7 @@ Merci de faire vos pull request sur la [branche testing](https://github.com/Yuno
 
 Pour essayer la branche testing, procédez comme suit.
 
-``` bash
+```bash
 sudo yunohost app install https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing --debug
 ou
 sudo yunohost app upgrade tooljet -u https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing --debug
