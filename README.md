@@ -9,7 +9,7 @@ It shall NOT be edited by hand.
 
 [![Install ToolJet with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
 
-*[Read this README is other languages.](./ALL_README.md)*
+*[Read this README in other languages.](./ALL_README.md)*
 
 > *This package allows you to install ToolJet quickly and simply on a YunoHost server.*  
 > *If you don't have YunoHost, please consult [the guide](https://yunohost.org/install) to learn how to install it.*
@@ -35,7 +35,7 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 - *Doesn't store data:* ToolJet acts only as a proxy and doesn't store any data.
 
 
-**Shipped version:** 2.34.0~ynh1
+**Shipped version:** 2.35.1~ynh1
 
 ## Screenshots
 
