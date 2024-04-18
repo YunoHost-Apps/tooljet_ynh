@@ -1,20 +1,20 @@
 <!--
-Nota bene : ce README est automatiquement généré par <https://github.com/YunoHost/apps/tree/master/tools/readme_generator>
-Il NE doit PAS être modifié à la main.
+Ohart ongi: README hau automatikoki sortu da <https://github.com/YunoHost/apps/tree/master/tools/readme_generator>ri esker
+EZ editatu eskuz.
 -->
 
-# ToolJet pour YunoHost
+# ToolJet YunoHost-erako
 
-[![Niveau d’intégration](https://dash.yunohost.org/integration/tooljet.svg)](https://dash.yunohost.org/appci/app/tooljet) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
+[![Integrazio maila](https://dash.yunohost.org/integration/tooljet.svg)](https://dash.yunohost.org/appci/app/tooljet) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
 
-[![Installer ToolJet avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
+[![Instalatu ToolJet YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
 
-*[Lire le README dans d'autres langues.](./ALL_README.md)*
+*[Irakurri README hau beste hizkuntzatan.](./ALL_README.md)*
 
-> *Ce package vous permet d’installer ToolJet rapidement et simplement sur un serveur YunoHost.*  
-> *Si vous n’avez pas YunoHost, consultez [ce guide](https://yunohost.org/install) pour savoir comment l’installer et en profiter.*
+> *Pakete honek ToolJet YunoHost zerbitzari batean azkar eta zailtasunik gabe instalatzea ahalbidetzen dizu.*  
+> *YunoHost ez baduzu, kontsultatu [gida](https://yunohost.org/install) nola instalatu ikasteko.*
 
-## Vue d’ensemble
+## Aurreikuspena
 
 ToolJet is an open-source low-code framework to build and deploy internal tools quickly without much effort from the engineering teams. You can connect to your data sources, such as databases (like PostgreSQL, MongoDB, Elasticsearch, etc), API endpoints (ToolJet supports importing OpenAPI spec & OAuth2 authorization), and external services (like Stripe, Slack, Google Sheets, Airtable) and use our pre-built UI widgets to build internal tools.
 
@@ -35,30 +35,30 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 - *Doesn't store data:* ToolJet acts only as a proxy and doesn't store any data.
 
 
-**Version incluse :** 2.35.3~ynh1
+**Paketatutako bertsioa:** 2.35.3~ynh1
 
-## Captures d’écran
+## Pantaila-argazkiak
 
-![Capture d’écran de ToolJet](./doc/screenshots/example.png)
+![ToolJet(r)en pantaila-argazkia](./doc/screenshots/example.png)
 
-## Documentations et ressources
+## Dokumentazioa eta baliabideak
 
-- Site officiel de l’app : <https://tooljet.com/>
-- Documentation officielle utilisateur : <https://docs.tooljet.com/docs/intro>
-- Dépôt de code officiel de l’app : <https://github.com/ToolJet/ToolJet>
-- YunoHost Store : <https://apps.yunohost.org/app/tooljet>
-- Signaler un bug : <https://github.com/YunoHost-Apps/tooljet_ynh/issues>
+- Aplikazioaren webgune ofiziala: <https://tooljet.com/>
+- Erabiltzaileen dokumentazio ofiziala: <https://docs.tooljet.com/docs/intro>
+- Jatorrizko aplikazioaren kode-gordailua: <https://github.com/ToolJet/ToolJet>
+- YunoHost Denda: <https://apps.yunohost.org/app/tooljet>
+- Eman errore baten berri: <https://github.com/YunoHost-Apps/tooljet_ynh/issues>
 
-## Informations pour les développeurs
+## Garatzaileentzako informazioa
 
-Merci de faire vos pull request sur la [branche `testing`](https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing).
+Bidali `pull request`a [`testing` abarrera](https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing).
 
-Pour essayer la branche `testing`, procédez comme suit :
+`testing` abarra probatzeko, ondorengoa egin:
 
 ```bash
 sudo yunohost app install https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing --debug
-ou
+edo
 sudo yunohost app upgrade tooljet -u https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing --debug
 ```
 
-**Plus d’infos sur le packaging d’applications :** <https://yunohost.org/packaging_apps>
+**Informazio gehiago aplikazioaren paketatzeari buruz:** <https://yunohost.org/packaging_apps>
