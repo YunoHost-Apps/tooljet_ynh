@@ -1,20 +1,20 @@
 <!--
-NOTA: Este README foi creado automáticamente por <https://github.com/YunoHost/apps/tree/master/tools/readme_generator>
-NON debe editarse manualmente.
+Ohart ongi: README hau automatikoki sortu da <https://github.com/YunoHost/apps/tree/master/tools/readme_generator>ri esker
+EZ editatu eskuz.
 -->
 
-# ToolJet para YunoHost
+# ToolJet YunoHost-erako
 
-[![Nivel de integración](https://dash.yunohost.org/integration/tooljet.svg)](https://dash.yunohost.org/appci/app/tooljet) ![Estado de funcionamento](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Estado de mantemento](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
+[![Integrazio maila](https://dash.yunohost.org/integration/tooljet.svg)](https://dash.yunohost.org/appci/app/tooljet) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
 
-[![Instalar ToolJet con YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
+[![Instalatu ToolJet YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
 
-*[Le este README en outros idiomas.](./ALL_README.md)*
+*[Irakurri README hau beste hizkuntzatan.](./ALL_README.md)*
 
-> *Este paquete permíteche instalar ToolJet de xeito rápido e doado nun servidor YunoHost.*  
-> *Se non usas YunoHost, le a [documentación](https://yunohost.org/install) para saber como instalalo.*
+> *Pakete honek ToolJet YunoHost zerbitzari batean azkar eta zailtasunik gabe instalatzea ahalbidetzen dizu.*  
+> *YunoHost ez baduzu, kontsultatu [gida](https://yunohost.org/install) nola instalatu ikasteko.*
 
-## Vista xeral
+## Aurreikuspena
 
 ToolJet is an open-source low-code framework to build and deploy internal tools quickly without much effort from the engineering teams. You can connect to your data sources, such as databases (like PostgreSQL, MongoDB, Elasticsearch, etc), API endpoints (ToolJet supports importing OpenAPI spec & OAuth2 authorization), and external services (like Stripe, Slack, Google Sheets, Airtable) and use our pre-built UI widgets to build internal tools.
 
@@ -35,30 +35,30 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 - *Doesn't store data:* ToolJet acts only as a proxy and doesn't store any data.
 
 
-**Versión proporcionada:** 2.36.0~ynh1
+**Paketatutako bertsioa:** 2.36.0~ynh1
 
-## Capturas de pantalla
+## Pantaila-argazkiak
 
-![Captura de pantalla de ToolJet](./doc/screenshots/example.png)
+![ToolJet(r)en pantaila-argazkia](./doc/screenshots/example.png)
 
-## Documentación e recursos
+## Dokumentazioa eta baliabideak
 
-- Web oficial da app: <https://tooljet.com/>
-- Documentación oficial para usuarias: <https://docs.tooljet.com/docs/intro>
-- Repositorio de orixe do código: <https://github.com/ToolJet/ToolJet>
-- Tenda YunoHost: <https://apps.yunohost.org/app/tooljet>
-- Informar dun problema: <https://github.com/YunoHost-Apps/tooljet_ynh/issues>
+- Aplikazioaren webgune ofiziala: <https://tooljet.com/>
+- Erabiltzaileen dokumentazio ofiziala: <https://docs.tooljet.com/docs/intro>
+- Jatorrizko aplikazioaren kode-gordailua: <https://github.com/ToolJet/ToolJet>
+- YunoHost Denda: <https://apps.yunohost.org/app/tooljet>
+- Eman errore baten berri: <https://github.com/YunoHost-Apps/tooljet_ynh/issues>
 
-## Info de desenvolvemento
+## Garatzaileentzako informazioa
 
-Envía a túa colaboración á [rama `testing`](https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing).
+Bidali `pull request`a [`testing` abarrera](https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing).
 
-Para probar a rama `testing`, procede deste xeito:
+`testing` abarra probatzeko, ondorengoa egin:
 
 ```bash
 sudo yunohost app install https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing --debug
-ou
+edo
 sudo yunohost app upgrade tooljet -u https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing --debug
 ```
 
-**Máis info sobre o empaquetado da app:** <https://yunohost.org/packaging_apps>
+**Informazio gehiago aplikazioaren paketatzeari buruz:** <https://yunohost.org/packaging_apps>
