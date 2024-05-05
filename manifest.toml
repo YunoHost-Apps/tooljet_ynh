@@ -55,7 +55,7 @@ ram.runtime = "300M"
     main.default = 8095
 
     [resources.apt]
-    packages = "postgresql, postgresql-contrib"
+    packages = "g++, postgresql, postgresql-contrib"
 
     [resources.database]
     type = "postgresql"
