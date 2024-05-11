@@ -3,7 +3,7 @@
 请勿手动编辑。
 -->
 
-# YunoHost 的 ToolJet
+# YunoHost 上的 ToolJet
 
 [![集成程度](https://dash.yunohost.org/integration/tooljet.svg)](https://dash.yunohost.org/appci/app/tooljet) ![工作状态](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
 
@@ -35,7 +35,7 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 - *Doesn't store data:* ToolJet acts only as a proxy and doesn't store any data.
 
 
-**分发版本：** 2.36.0~ynh1
+**分发版本：** 2.41.1~ynh1
 
 ## 截图
 
