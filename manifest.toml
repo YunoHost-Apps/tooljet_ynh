@@ -4,7 +4,7 @@ id = "tooljet"
 name = "ToolJet"
 description.en = "Open-source low-code framework for building React-based web applications and internal tools"
 
-version = "2.42.0~ynh1"
+version = "2.44.0~ynh1"
 
 maintainers = ["Tagadda"]
 
@@ -38,8 +38,8 @@ ram.runtime = "300M"
     [resources.sources]
 
         [resources.sources.main]
-        url = "https://github.com/ToolJet/ToolJet/archive/refs/tags/v2.42.0.tar.gz"
-        sha256 = "e028504ae1d3583d0d8ea14ea94c333e235b64478e7dd5457b5e22202bb97f1f"
+        url = "https://github.com/ToolJet/ToolJet/archive/refs/tags/v2.44.0.tar.gz"
+        sha256 = "f36f2313ca6a1ad7e96560269b89abb09b523e683974112a7c4d25e0f8f885a6"
 
         autoupdate.strategy = "latest_github_release"
 
