@@ -5,7 +5,7 @@ EZ editatu eskuz.
 
 # ToolJet YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/tooljet.svg)](https://dash.yunohost.org/appci/app/tooljet) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
+[![Integrazio maila](https://dash.yunohost.org/integration/tooljet.svg)](https://ci-apps.yunohost.org/ci/apps/tooljet/) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
 
 [![Instalatu ToolJet YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
 
@@ -35,7 +35,7 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 - *Doesn't store data:* ToolJet acts only as a proxy and doesn't store any data.
 
 
-**Paketatutako bertsioa:** 2.61.3~ynh1
+**Paketatutako bertsioa:** 2.62.0~ynh1
 
 ## Pantaila-argazkiak
 
