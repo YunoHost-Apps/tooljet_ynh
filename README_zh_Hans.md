@@ -5,7 +5,7 @@
 
 # YunoHost 上的 ToolJet
 
-[![集成程度](https://dash.yunohost.org/integration/tooljet.svg)](https://dash.yunohost.org/appci/app/tooljet) ![工作状态](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
+[![集成程度](https://dash.yunohost.org/integration/tooljet.svg)](https://ci-apps.yunohost.org/ci/apps/tooljet/) ![工作状态](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
 
 [![使用 YunoHost 安装 ToolJet](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
 

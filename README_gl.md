@@ -5,7 +5,7 @@ NON debe editarse manualmente.
 
 # ToolJet para YunoHost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/tooljet.svg)](https://dash.yunohost.org/appci/app/tooljet) ![Estado de funcionamento](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Estado de mantemento](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
+[![Nivel de integración](https://dash.yunohost.org/integration/tooljet.svg)](https://ci-apps.yunohost.org/ci/apps/tooljet/) ![Estado de funcionamento](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Estado de mantemento](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
 
 [![Instalar ToolJet con YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
 

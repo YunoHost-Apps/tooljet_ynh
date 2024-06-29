@@ -5,7 +5,7 @@ EZ editatu eskuz.
 
 # ToolJet YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/tooljet.svg)](https://dash.yunohost.org/appci/app/tooljet) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
+[![Integrazio maila](https://dash.yunohost.org/integration/tooljet.svg)](https://ci-apps.yunohost.org/ci/apps/tooljet/) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
 
 [![Instalatu ToolJet YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
 
