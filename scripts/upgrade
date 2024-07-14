@@ -67,7 +67,7 @@ ynh_script_progression --message="Building ToolJet..." --weight=10
 pushd $install_dir
 	ynh_use_nodejs
 
-	# The version shipped by default with n does not work, there is a 
+	# The version shipped by default with n does not work, there is a
 	# wierd dependency issue about unsupported platform and fsevent.
 	# See https://github.com/ToolJet/ToolJet/pull/1752
 	$ynh_npm install npm@"$NPM_VERSION" --location=global
@@ -101,7 +101,10 @@ ynh_script_progression --message="Building ToolJet database..." --weight=1
 
 pushd $install_dir
 	# Build the database once the configuration is set
-	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm run db:migrate
+	# Need superuser because it uses a temporary database...
+	ynh_psql_execute_as_root --sql="ALTER USER $db_user WITH SUPERUSER;" --database="$db_name"
+	ynh_exec_as "$app" "$ynh_node_load_PATH" "$ynh_npm" run db:migrate
+	ynh_psql_execute_as_root --sql="ALTER USER $db_user WITH NOSUPERUSER;" --database="$db_name"
 popd
 
 #=================================================
