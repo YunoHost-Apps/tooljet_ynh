@@ -1,20 +1,20 @@
 <!--
-Ohart ongi: README hau automatikoki sortu da <https://github.com/YunoHost/apps/tree/master/tools/readme_generator>ri esker
-EZ editatu eskuz.
+N.B.: README ini dibuat secara otomatis oleh <https://github.com/YunoHost/apps/tree/master/tools/readme_generator>
+Ini TIDAK boleh diedit dengan tangan.
 -->
 
-# ToolJet YunoHost-erako
+# ToolJet untuk YunoHost
 
-[![Integrazio maila](https://dash.yunohost.org/integration/tooljet.svg)](https://ci-apps.yunohost.org/ci/apps/tooljet/) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
+[![Tingkat integrasi](https://dash.yunohost.org/integration/tooljet.svg)](https://ci-apps.yunohost.org/ci/apps/tooljet/) ![Status kerja](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Status pemeliharaan](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
 
-[![Instalatu ToolJet YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
+[![Pasang ToolJet dengan YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
 
-*[Irakurri README hau beste hizkuntzatan.](./ALL_README.md)*
+*[Baca README ini dengan bahasa yang lain.](./ALL_README.md)*
 
-> *Pakete honek ToolJet YunoHost zerbitzari batean azkar eta zailtasunik gabe instalatzea ahalbidetzen dizu.*  
-> *YunoHost ez baduzu, kontsultatu [gida](https://yunohost.org/install) nola instalatu ikasteko.*
+> *Paket ini memperbolehkan Anda untuk memasang ToolJet secara cepat dan mudah pada server YunoHost.*  
+> *Bila Anda tidak mempunyai YunoHost, silakan berkonsultasi dengan [panduan](https://yunohost.org/install) untuk mempelajari bagaimana untuk memasangnya.*
 
-## Aurreikuspena
+## Ringkasan
 
 ToolJet is an open-source low-code framework to build and deploy internal tools quickly without much effort from the engineering teams. You can connect to your data sources, such as databases (like PostgreSQL, MongoDB, Elasticsearch, etc), API endpoints (ToolJet supports importing OpenAPI spec & OAuth2 authorization), and external services (like Stripe, Slack, Google Sheets, Airtable) and use our pre-built UI widgets to build internal tools.
 
@@ -35,30 +35,30 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 - *Doesn't store data:* ToolJet acts only as a proxy and doesn't store any data.
 
 
-**Paketatutako bertsioa:** 2.65.2~ynh1
+**Versi terkirim:** 2.65.2~ynh1
 
-## Pantaila-argazkiak
+## Tangkapan Layar
 
-![ToolJet(r)en pantaila-argazkia](./doc/screenshots/example.png)
+![Tangkapan Layar pada ToolJet](./doc/screenshots/example.png)
 
-## Dokumentazioa eta baliabideak
+## Dokumentasi dan sumber daya
 
-- Aplikazioaren webgune ofiziala: <https://tooljet.com/>
-- Erabiltzaileen dokumentazio ofiziala: <https://docs.tooljet.com/docs/intro>
-- Jatorrizko aplikazioaren kode-gordailua: <https://github.com/ToolJet/ToolJet>
-- YunoHost Denda: <https://apps.yunohost.org/app/tooljet>
-- Eman errore baten berri: <https://github.com/YunoHost-Apps/tooljet_ynh/issues>
+- Website aplikasi resmi: <https://tooljet.com/>
+- Dokumentasi pengguna resmi: <https://docs.tooljet.com/docs/intro>
+- Repositori kode aplikasi hulu: <https://github.com/ToolJet/ToolJet>
+- Gudang YunoHost: <https://apps.yunohost.org/app/tooljet>
+- Laporkan bug: <https://github.com/YunoHost-Apps/tooljet_ynh/issues>
 
-## Garatzaileentzako informazioa
+## Info developer
 
-Bidali `pull request`a [`testing` abarrera](https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing).
+Silakan kirim pull request ke [`testing` branch](https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing).
 
-`testing` abarra probatzeko, ondorengoa egin:
+Untuk mencoba branch `testing`, silakan dilanjutkan seperti:
 
 ```bash
 sudo yunohost app install https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing --debug
-edo
+atau
 sudo yunohost app upgrade tooljet -u https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing --debug
 ```
 
-**Informazio gehiago aplikazioaren paketatzeari buruz:** <https://yunohost.org/packaging_apps>
+**Info lebih lanjut mengenai pemaketan aplikasi:** <https://yunohost.org/packaging_apps>
