@@ -45,7 +45,7 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 
 - Website aplikasi resmi: <https://tooljet.com/>
 - Dokumentasi pengguna resmi: <https://docs.tooljet.com/docs/intro>
-- Repositori kode aplikasi hulu: <https://github.com/ToolJet/ToolJet>
+- Depot kode aplikasi hulu: <https://github.com/ToolJet/ToolJet>
 - Gudang YunoHost: <https://apps.yunohost.org/app/tooljet>
 - Laporkan bug: <https://github.com/YunoHost-Apps/tooljet_ynh/issues>
 
