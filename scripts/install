@@ -1,11 +1,5 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
@@ -21,7 +15,6 @@ ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 #=================================================
 ynh_script_progression --message="Setting up source files..." --weight=1
 
-# Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir"
 
 chmod 750 "$install_dir"
@@ -33,11 +26,8 @@ chown -R $app:$app "$install_dir"
 #=================================================
 ynh_script_progression --message="Configuring NGINX web server..." --weight=1
 
-# Create a dedicated NGINX config
 ynh_add_nginx_config
 
-#=================================================
-# SPECIFIC SETUP
 #=================================================
 # BUILD THE APPLICATION
 #=================================================
@@ -102,11 +92,8 @@ popd
 #=================================================
 ynh_script_progression --message="Configuring a systemd service..." --weight=1
 
-# Create a dedicated systemd config
 ynh_add_systemd_config
 
-#=================================================
-# GENERIC FINALIZATION
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
@@ -119,7 +106,6 @@ yunohost service add $app
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
-# Start a systemd service
 ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
 
 #=================================================
