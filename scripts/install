@@ -6,110 +6,108 @@ source /usr/share/yunohost/helpers
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Installing dependencies..." --weight=1
+ynh_script_progression "Installing dependencies..."
 
-ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
+ynh_nodejs_install
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Setting up source files..." --weight=1
+ynh_script_progression "Setting up source files..."
 
 ynh_setup_source --dest_dir="$install_dir"
 
-chmod 750 "$install_dir"
-chmod -R o-rwx "$install_dir"
-chown -R $app:$app "$install_dir"
-
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 750 "$install_dir"
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:$app "$install_dir"
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring NGINX web server..." --weight=1
+ynh_script_progression "Configuring NGINX web server..."
 
-ynh_add_nginx_config
+ynh_config_add_nginx
 
 #=================================================
 # BUILD THE APPLICATION
 #=================================================
-ynh_script_progression --message="Building ToolJet..." --weight=10
+ynh_script_progression "Building ToolJet..."
 
 pushd $install_dir
-	ynh_use_nodejs
 
-	# The version shipped by default with n does not work, there is a 
+	# The version shipped by default with n does not work, there is a
+
 	# weird dependency issue about unsupported platform and fsevent.
 	# See https://github.com/ToolJet/ToolJet/pull/1752
-	$ynh_npm install npm@"$NPM_VERSION" --location=global
+	npm install npm@"$NPM_VERSION" --location=global
 
-	ynh_exec_warn_less ynh_exec_as $app $ynh_node_load_PATH $ynh_npm install -f
-	ynh_exec_warn_less ynh_exec_as $app $ynh_node_load_PATH $ynh_npm run build
+	ynh_hide_warnings ynh_exec_as_app node_load_PATH npm install -f
+	ynh_hide_warnings ynh_exec_as_app node_load_PATH npm run build
 popd
 
 # Cleanup after install
-ynh_secure_remove --file="$install_dir/.cache"
-ynh_secure_remove --file="$install_dir/.npm/_cacache"
-ynh_secure_remove --file="$install_dir/node_modules"
-ynh_secure_remove --file="$install_dir/frontend/node_modules"
+ynh_safe_rm "$install_dir/.cache"
+ynh_safe_rm "$install_dir/.npm/_cacache"
+ynh_safe_rm "$install_dir/node_modules"
+ynh_safe_rm "$install_dir/frontend/node_modules"
 
-chmod 750 "$install_dir"
-chmod -R o-rwx "$install_dir"
-chown -R $app:$app "$install_dir"
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 750 "$install_dir"
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:$app "$install_dir"
 chown $app:www-data -R "$install_dir/frontend/build"
 chown $app:www-data "$install_dir/frontend/build"
 chown $app:www-data "$install_dir/frontend"
-chown $app:www-data "$install_dir"
-
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:www-data "$install_dir"
 #=================================================
 # ADD A CONFIGURATION
 #=================================================
-ynh_script_progression --message="Adding a configuration file..." --weight=1
+ynh_script_progression "Adding $app's configuration..."
 
 # package_linter don't like `openssl` rand :(
 # Use ynh_string_random and some magic stuff to get a 32 bytes hex-only string
 lockbox_master_key=$(ynh_string_random --length=32 | xxd -p | head -n1 | cut -c 1-32)
-ynh_app_setting_set --app="$app" --key=lockbox_master_key --value="$lockbox_master_key"
+ynh_app_setting_set --key=lockbox_master_key --value="$lockbox_master_key"
 
 secret_key_base=$(ynh_string_random --length=64 | xxd -p | head -n1 | cut -c 1-64)
-ynh_app_setting_set --app="$app" --key=secret_key_base --value="$secret_key_base"
+ynh_app_setting_set --key=secret_key_base --value="$secret_key_base"
 
-ynh_add_config --template=".env.example" --destination="$install_dir/.env"
+ynh_config_add --template=".env.example" --destination="$install_dir/.env"
 
-chmod 400 "$install_dir/.env"
-chown $app:$app "$install_dir/.env"
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 400 "$install_dir/.env"
+#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:$app "$install_dir/.env"
 
 #=================================================
 # BUILD THE DATABASE
 #=================================================
-ynh_script_progression --message="Building ToolJet database..." --weight=1
+ynh_script_progression "Building ToolJet database..."
 
 pushd $install_dir
 	# Build the database once the configuration is set
-	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm run db:migrate
+	ynh_exec_as_app node_load_PATH npm run db:migrate
 popd
 
 #=================================================
 # SETUP SYSTEMD
 #=================================================
-ynh_script_progression --message="Configuring a systemd service..." --weight=1
+ynh_script_progression "Configuring $app's systemd service..."
 
-ynh_add_systemd_config
+ynh_config_add_systemd
 
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
+ynh_script_progression "Integrating service in YunoHost..."
 
 yunohost service add $app
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..." --weight=1
+ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
+ynh_systemctl --service=$app --action="start"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed" --last
+ynh_script_progression "Installation of $app completed"
