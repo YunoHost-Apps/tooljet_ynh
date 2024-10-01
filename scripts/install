@@ -17,16 +17,6 @@ ynh_script_progression "Setting up source files..."
 
 ynh_setup_source --dest_dir="$install_dir"
 
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 750 "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:$app "$install_dir"
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-ynh_script_progression "Configuring NGINX web server..."
-
-ynh_config_add_nginx
-
 #=================================================
 # BUILD THE APPLICATION
 #=================================================
@@ -40,8 +30,8 @@ pushd $install_dir
 	# See https://github.com/ToolJet/ToolJet/pull/1752
 	npm install npm@"$NPM_VERSION" --location=global
 
-	ynh_hide_warnings ynh_exec_as_app node_load_PATH npm install -f
-	ynh_hide_warnings ynh_exec_as_app node_load_PATH npm run build
+	ynh_hide_warnings ynh_exec_as_app npm install -f
+	ynh_hide_warnings ynh_exec_as_app npm run build
 popd
 
 # Cleanup after install
@@ -50,13 +40,9 @@ ynh_safe_rm "$install_dir/.npm/_cacache"
 ynh_safe_rm "$install_dir/node_modules"
 ynh_safe_rm "$install_dir/frontend/node_modules"
 
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 750 "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:$app "$install_dir"
 chown $app:www-data -R "$install_dir/frontend/build"
 chown $app:www-data "$install_dir/frontend/build"
 chown $app:www-data "$install_dir/frontend"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:www-data "$install_dir"
 #=================================================
 # ADD A CONFIGURATION
 #=================================================
@@ -72,9 +58,6 @@ ynh_app_setting_set --key=secret_key_base --value="$secret_key_base"
 
 ynh_config_add --template=".env.example" --destination="$install_dir/.env"
 
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 400 "$install_dir/.env"
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:$app "$install_dir/.env"
-
 #=================================================
 # BUILD THE DATABASE
 #=================================================
@@ -82,22 +65,20 @@ ynh_script_progression "Building ToolJet database..."
 
 pushd $install_dir
 	# Build the database once the configuration is set
-	ynh_exec_as_app node_load_PATH npm run db:migrate
+	ynh_exec_as_app npm run db:migrate
 popd
 
 #=================================================
-# SETUP SYSTEMD
+# SYSTEM CONFIGURATION
 #=================================================
-ynh_script_progression "Configuring $app's systemd service..."
+ynh_script_progression "Adding system configurations related to $app..."
+
+ynh_config_add_nginx
 
 ynh_config_add_systemd
 
-#=================================================
-# INTEGRATE SERVICE IN YUNOHOST
-#=================================================
-ynh_script_progression "Integrating service in YunoHost..."
-
 yunohost service add $app
+yunohost service add "$app" --description="A short description of the app" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE

@@ -17,9 +17,6 @@ ynh_script_progression "Upgrading source files..."
 
 ynh_setup_source --dest_dir="$install_dir"
 
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 750 "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:$app "$install_dir"
 # Cleanup after install
 ynh_safe_rm "$install_dir/.cache"
 ynh_safe_rm "$install_dir/.npm/_cacache"
@@ -50,22 +47,16 @@ pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app node_load_PATH npm run build
 popd
 
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 750 "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:$app "$install_dir"
 chown $app:www-data -R "$install_dir/frontend/build"
 chown $app:www-data "$install_dir/frontend/build"
 chown $app:www-data "$install_dir/frontend"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:www-data "$install_dir"
+
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
 ynh_script_progression "Updating configuration..."
 
 ynh_config_add --template=".env.example" --destination="$install_dir/.env"
-
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 400 "$install_dir/.env"
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:$app "$install_dir/.env"
 
 #=================================================
 # BUILD THE DATABASE
@@ -74,7 +65,7 @@ ynh_script_progression "Building ToolJet database..."
 
 pushd $install_dir
 	# Build the database once the configuration is set
-	ynh_exec_as_app node_load_PATH npm run db:migrate
+	ynh_exec_as_app npm run db:migrate
 popd
 
 #=================================================
@@ -84,12 +75,7 @@ ynh_script_progression "Upgrading systemd configuration..."
 
 ynh_config_add_systemd
 
-#=================================================
-# INTEGRATE SERVICE IN YUNOHOST
-#=================================================
-ynh_script_progression "Integrating service in YunoHost..."
-
-yunohost service add $app
+yunohost service add "$app" --description="A short description of the app" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
