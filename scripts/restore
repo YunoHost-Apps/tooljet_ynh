@@ -1,17 +1,8 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
-# Keep this path for calling _common.sh inside the execution's context of backup and restore scripts
 source ../settings/scripts/_common.sh
 source /usr/share/yunohost/helpers
 
-#=================================================
-# STANDARD RESTORATION STEPS
 #=================================================
 # RESTORE THE NGINX CONFIGURATION
 #=================================================
@@ -34,8 +25,6 @@ chown $app:www-data "$install_dir/frontend/build"
 chown $app:www-data "$install_dir/frontend"
 chown $app:www-data "$install_dir"
 
-#=================================================
-# SPECIFIC RESTORATION
 #=================================================
 # REINSTALL DEPENDENCIES
 #=================================================
@@ -72,8 +61,6 @@ ynh_script_progression --message="Starting a systemd service..." --weight=1
 
 ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
 
-#=================================================
-# GENERIC FINALIZATION
 #=================================================
 # RELOAD NGINX
 #=================================================

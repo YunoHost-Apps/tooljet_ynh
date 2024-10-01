@@ -1,16 +1,8 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC STARTING
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
-#=================================================
-# STANDARD MODIFICATIONS
 #=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
@@ -26,8 +18,6 @@ ynh_script_progression --message="Updating NGINX web server configuration..." --
 ynh_change_url_nginx_config
 
 #=================================================
-# SPECIFIC MODIFICATIONS
-#=================================================
 # UPDATE A CONFIG FILE
 #=================================================
 ynh_script_progression --message="Updating a configuration file..." --weight=1
@@ -37,8 +27,6 @@ ynh_add_config --template=".env.example" --destination="$install_dir/.env"
 chmod 400 "$install_dir/.env"
 chown $app:$app "$install_dir/.env"
 
-#=================================================
-# GENERIC FINALISATION
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
