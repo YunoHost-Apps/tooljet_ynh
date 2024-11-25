@@ -5,8 +5,9 @@
 
 # ToolJet для YunoHost
 
-[![Уровень интеграции](https://dash.yunohost.org/integration/tooljet.svg)](https://ci-apps.yunohost.org/ci/apps/tooljet/) ![Состояние работы](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Состояние сопровождения](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
-
+[![Уровень интеграции](https://apps.yunohost.org/badge/integration/tooljet)](https://ci-apps.yunohost.org/ci/apps/tooljet/)
+![Состояние работы](https://apps.yunohost.org/badge/state/tooljet)
+![Состояние сопровождения](https://apps.yunohost.org/badge/maintained/tooljet)
 
 [![Установите ToolJet с YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
 
