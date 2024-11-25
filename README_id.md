@@ -5,7 +5,9 @@ Ini TIDAK boleh diedit dengan tangan.
 
 # ToolJet untuk YunoHost
 
-[![Tingkat integrasi](https://dash.yunohost.org/integration/tooljet.svg)](https://ci-apps.yunohost.org/ci/apps/tooljet/) ![Status kerja](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Status pemeliharaan](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
+[![Tingkat integrasi](https://apps.yunohost.org/badge/integration/tooljet)](https://ci-apps.yunohost.org/ci/apps/tooljet/)
+![Status kerja](https://apps.yunohost.org/badge/state/tooljet)
+![Status pemeliharaan](https://apps.yunohost.org/badge/maintained/tooljet)
 
 [![Pasang ToolJet dengan YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
 
