@@ -5,7 +5,9 @@ Hij mag NIET handmatig aangepast worden.
 
 # ToolJet voor Yunohost
 
-[![Integratieniveau](https://dash.yunohost.org/integration/tooljet.svg)](https://ci-apps.yunohost.org/ci/apps/tooljet/) ![Mate van functioneren](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Onderhoudsstatus](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
+[![Integratieniveau](https://apps.yunohost.org/badge/integration/tooljet)](https://ci-apps.yunohost.org/ci/apps/tooljet/)
+![Mate van functioneren](https://apps.yunohost.org/badge/state/tooljet)
+![Onderhoudsstatus](https://apps.yunohost.org/badge/maintained/tooljet)
 
 [![ToolJet met Yunohost installeren](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
 

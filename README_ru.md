@@ -7,6 +7,7 @@
 
 [![Уровень интеграции](https://dash.yunohost.org/integration/tooljet.svg)](https://ci-apps.yunohost.org/ci/apps/tooljet/) ![Состояние работы](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Состояние сопровождения](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
 
+
 [![Установите ToolJet с YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
 
 *[Прочтите этот README на других языках.](./ALL_README.md)*
