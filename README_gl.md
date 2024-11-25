@@ -37,7 +37,7 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 - *Doesn't store data:* ToolJet acts only as a proxy and doesn't store any data.
 
 
-**Versión proporcionada:** 2.63.0~ynh1
+**Versión proporcionada:** 2.63.0~ynh2
 
 ## Capturas de pantalla
 
