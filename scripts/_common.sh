@@ -7,8 +7,6 @@
 NODEJS_VERSION="18.18.2"
 NPM_VERSION="9.8.1"
 
-main_domain=$(cat /etc/yunohost/current_host)
-
 #=================================================
 # PERSONAL HELPERS
 #=================================================

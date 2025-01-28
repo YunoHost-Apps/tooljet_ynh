@@ -51,8 +51,8 @@ pushd $install_dir
 	# See https://github.com/ToolJet/ToolJet/pull/1752
 	$ynh_npm install npm@"$NPM_VERSION" --location=global
 
-	ynh_exec_warn_less ynh_exec_as $app $ynh_node_load_PATH $ynh_npm install -f
-	ynh_exec_warn_less ynh_exec_as $app $ynh_node_load_PATH $ynh_npm run build
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH $ynh_npm install -f
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH NODE_OPTIONS="--max-old-space-size=4096" $ynh_npm run build
 popd
 
 # Cleanup after install
@@ -94,7 +94,7 @@ ynh_script_progression --message="Building ToolJet database..." --weight=1
 
 pushd $install_dir
 	# Build the database once the configuration is set
-	ynh_exec_as $app $ynh_node_load_PATH $ynh_npm run db:migrate
+	ynh_exec_as $app env $ynh_node_load_PATH $ynh_npm run db:migrate
 popd
 
 #=================================================

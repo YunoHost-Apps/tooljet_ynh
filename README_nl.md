@@ -1,22 +1,22 @@
 <!--
-注意：此 README 由 <https://github.com/YunoHost/apps/tree/master/tools/readme_generator> 自动生成
-请勿手动编辑。
+NB: Deze README is automatisch gegenereerd door <https://github.com/YunoHost/apps/tree/master/tools/readme_generator>
+Hij mag NIET handmatig aangepast worden.
 -->
 
-# YunoHost 上的 ToolJet
+# ToolJet voor Yunohost
 
-[![集成程度](https://apps.yunohost.org/badge/integration/tooljet)](https://ci-apps.yunohost.org/ci/apps/tooljet/)
-![工作状态](https://apps.yunohost.org/badge/state/tooljet)
-![维护状态](https://apps.yunohost.org/badge/maintained/tooljet)
+[![Integratieniveau](https://apps.yunohost.org/badge/integration/tooljet)](https://ci-apps.yunohost.org/ci/apps/tooljet/)
+![Mate van functioneren](https://apps.yunohost.org/badge/state/tooljet)
+![Onderhoudsstatus](https://apps.yunohost.org/badge/maintained/tooljet)
 
-[![使用 YunoHost 安装 ToolJet](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
+[![ToolJet met Yunohost installeren](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
 
-*[阅读此 README 的其它语言版本。](./ALL_README.md)*
+*[Deze README in een andere taal lezen.](./ALL_README.md)*
 
-> *通过此软件包，您可以在 YunoHost 服务器上快速、简单地安装 ToolJet。*  
-> *如果您还没有 YunoHost，请参阅[指南](https://yunohost.org/install)了解如何安装它。*
+> *Met dit pakket kun je ToolJet snel en eenvoudig op een YunoHost-server installeren.*  
+> *Als je nog geen YunoHost hebt, lees dan [de installatiehandleiding](https://yunohost.org/install), om te zien hoe je 'm installeert.*
 
-## 概况
+## Overzicht
 
 ToolJet is an open-source low-code framework to build and deploy internal tools quickly without much effort from the engineering teams. You can connect to your data sources, such as databases (like PostgreSQL, MongoDB, Elasticsearch, etc), API endpoints (ToolJet supports importing OpenAPI spec & OAuth2 authorization), and external services (like Stripe, Slack, Google Sheets, Airtable) and use our pre-built UI widgets to build internal tools.
 
@@ -37,30 +37,30 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 - *Doesn't store data:* ToolJet acts only as a proxy and doesn't store any data.
 
 
-**分发版本：** 2.63.0~ynh2
+**Geleverde versie:** 2.63.0~ynh2
 
-## 截图
+## Schermafdrukken
 
-![ToolJet 的截图](./doc/screenshots/example.png)
+![Schermafdrukken van ToolJet](./doc/screenshots/example.png)
 
-## 文档与资源
+## Documentatie en bronnen
 
-- 官方应用网站： <https://tooljet.com/>
-- 官方用户文档： <https://docs.tooljet.com/docs/intro>
-- 上游应用代码库： <https://github.com/ToolJet/ToolJet>
-- YunoHost 商店： <https://apps.yunohost.org/app/tooljet>
-- 报告 bug： <https://github.com/YunoHost-Apps/tooljet_ynh/issues>
+- Officiele website van de app: <https://tooljet.com/>
+- Officiele gebruikersdocumentatie: <https://docs.tooljet.com/docs/intro>
+- Upstream app codedepot: <https://github.com/ToolJet/ToolJet>
+- YunoHost-store: <https://apps.yunohost.org/app/tooljet>
+- Meld een bug: <https://github.com/YunoHost-Apps/tooljet_ynh/issues>
 
-## 开发者信息
+## Ontwikkelaarsinformatie
 
-请向 [`testing` 分支](https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing) 发送拉取请求。
+Stuur je pull request alsjeblieft naar de [`testing`-branch](https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing).
 
-如要尝试 `testing` 分支，请这样操作：
+Om de `testing`-branch uit te proberen, ga als volgt te werk:
 
 ```bash
 sudo yunohost app install https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing --debug
-或
+of
 sudo yunohost app upgrade tooljet -u https://github.com/YunoHost-Apps/tooljet_ynh/tree/testing --debug
 ```
 
-**有关应用打包的更多信息：** <https://yunohost.org/packaging_apps>
+**Verdere informatie over app-packaging:** <https://yunohost.org/packaging_apps>

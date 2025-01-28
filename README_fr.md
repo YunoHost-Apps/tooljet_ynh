@@ -5,7 +5,9 @@ Il NE doit PAS être modifié à la main.
 
 # ToolJet pour YunoHost
 
-[![Niveau d’intégration](https://dash.yunohost.org/integration/tooljet.svg)](https://ci-apps.yunohost.org/ci/apps/tooljet/) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/tooljet.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/tooljet.maintain.svg)
+[![Niveau d’intégration](https://apps.yunohost.org/badge/integration/tooljet)](https://ci-apps.yunohost.org/ci/apps/tooljet/)
+![Statut du fonctionnement](https://apps.yunohost.org/badge/state/tooljet)
+![Statut de maintenance](https://apps.yunohost.org/badge/maintained/tooljet)
 
 [![Installer ToolJet avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=tooljet)
 
@@ -35,7 +37,7 @@ ToolJet is an open-source low-code framework to build and deploy internal tools 
 - *Doesn't store data:* ToolJet acts only as a proxy and doesn't store any data.
 
 
-**Version incluse :** 2.63.0~ynh1
+**Version incluse :** 2.63.0~ynh2
 
 ## Captures d’écran
 
