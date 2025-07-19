@@ -8,7 +8,7 @@ It shall NOT be edited by hand.
   ToolJet, packaged for YunoHost
 </h1>
 
-Open-source low-code framework for building React-based web applications and internal tools
+Framework for building React-based Web applications and internal tools
 
 [![🌐 Official app website](https://img.shields.io/badge/Official_app_website-darkgreen?style=for-the-badge)](https://tooljet.com/)
 [![Version: 2.63.0~ynh2](https://img.shields.io/badge/Version-2.63.0~ynh2-rgba(0,150,0,1)?style=for-the-badge)](https://ci-apps.yunohost.org/ci/apps/tooljet/)
