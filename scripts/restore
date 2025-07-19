@@ -5,13 +5,11 @@ source ../settings/scripts/_common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# STANDARD RESTORATION STEPS
+# REINSTALL DEPENDENCIES
 #=================================================
-# RESTORE THE NGINX CONFIGURATION
-#=================================================
-ynh_script_progression "Restoring the NGINX web server configuration..."
+ynh_script_progression "Reinstalling dependencies..."
 
-ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
+ynh_nodejs_install
 
 #=================================================
 # RESTORE THE APP MAIN DIR
@@ -29,15 +27,6 @@ chown $app:www-data "$install_dir/frontend"
 chown $app:www-data "$install_dir"
 
 #=================================================
-# SPECIFIC RESTORATION
-#=================================================
-# REINSTALL DEPENDENCIES
-#=================================================
-ynh_script_progression "Reinstalling dependencies..."
-
-ynh_nodejs_install
-
-#=================================================
 # RESTORE THE POSTGRESQL DATABASE
 #=================================================
 ynh_script_progression "Restoring the PostgreSQL database..."
@@ -48,6 +37,8 @@ ynh_psql_db_shell < ./db.sql
 # RESTORE SYSTEMD
 #=================================================
 ynh_script_progression "Restoring $app's systemd service..."
+
+ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 
 ynh_restore "/etc/systemd/system/$app.service"
 systemctl enable $app.service --quiet

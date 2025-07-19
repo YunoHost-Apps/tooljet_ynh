@@ -2,8 +2,8 @@ packaging_format = 2
 
 id = "tooljet"
 name = "ToolJet"
-description.en = "Open-source low-code framework for building React-based web applications and internal tools"
-
+description.en = "Framework for building React-based Web applications and internal tools"
+description.fr = "Construction d'applications Web basées sur React et d'outils internes"
 version = "2.63.0~ynh2"
 
 maintainers = ["Tagadda"]
@@ -16,12 +16,14 @@ code = "https://github.com/ToolJet/ToolJet"
 cpe = "cpe:2.3:a:tooljet:tooljet"
 
 [integration]
-yunohost = ">= 11.2.18"
+yunohost = ">= 12.0.9"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
+
 ldap = false
 sso = false
+
 disk = "3G"
 ram.build = "3G"
 ram.runtime = "300M"

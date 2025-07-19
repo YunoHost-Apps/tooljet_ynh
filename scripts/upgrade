@@ -11,13 +11,6 @@ ynh_script_progression "Stopping $app's systemd service..."
 ynh_systemctl --service=$app --action="stop"
 
 #=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-#ynh_script_progression "Ensuring downward compatibility..."
-
-# Nothing to do yet...
-
-#=================================================
 # INSTALL DEPENDENCIES
 #=================================================
 ynh_script_progression "Installing dependencies..."
@@ -27,7 +20,6 @@ ynh_nodejs_install
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-
 ynh_script_progression "Upgrading source files..."
 
 ynh_setup_source --dest_dir="$install_dir"
@@ -37,14 +29,6 @@ ynh_safe_rm "$install_dir/.cache"
 ynh_safe_rm "$install_dir/.npm/_cacache"
 ynh_safe_rm "$install_dir/node_modules"
 ynh_safe_rm "$install_dir/frontend/node_modules"
-
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-ynh_script_progression "Upgrading NGINX web server configuration..."
-
-# Create a dedicated NGINX config
-ynh_config_add_nginx
 
 #=================================================
 # BUILD THE APPLICATION
@@ -92,7 +76,7 @@ chown $app:www-data "$install_dir"
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
-ynh_script_progression "Updating configuration..."
+ynh_script_progression "Updating $app's configuration files..."
 
 ynh_config_add --template=".env.example" --destination="$install_dir/.env"
 
@@ -111,17 +95,15 @@ pushd $install_dir
 popd
 
 #=================================================
-# SETUP SYSTEMD
+# REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
-ynh_script_progression "Upgrading systemd configuration..."
+ynh_script_progression "Upgrading system configurations related to $app..."
+
+# Create a dedicated NGINX config
+ynh_config_add_nginx
 
 # Create a dedicated systemd config
 ynh_config_add_systemd
-
-#=================================================
-# INTEGRATE SERVICE IN YUNOHOST
-#=================================================
-ynh_script_progression "Integrating service in YunoHost..."
 
 yunohost service add $app
 
