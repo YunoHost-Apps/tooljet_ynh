@@ -4,7 +4,7 @@ id = "tooljet"
 name = "ToolJet"
 description.en = "Framework for building React-based Web applications and internal tools"
 description.fr = "Construction d'applications Web basées sur React et d'outils internes"
-version = "2.63.0~ynh2"
+version = "3.15.1~ynh1"
 
 maintainers = ["Tagadda"]
 
