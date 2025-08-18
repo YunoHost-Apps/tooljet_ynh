@@ -45,25 +45,31 @@ pushd $install_dir
 	ynh_script_progression "Building frontend..."
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix frontend install
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=4096" npm --prefix frontend run build --production
-	ynh_hide_warnings ynh_exec_as_app npm --prefix frontend prune --production
 
 	ynh_script_progression "Building server..."
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix server install
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=4096" npm --prefix server run build
-	ynh_hide_warnings ynh_exec_as_app npm --prefix plugins prune --production
+	ynh_hide_warnings ynh_exec_as_app npm --prefix server prune --production
 
 	ynh_script_progression "Cleanup unneeded files..."
-	ynh_hide_warnings ynh_exec_as_app npm prune --production
-	ynh_hide_warnings ynh_exec_as_app npm install --production --ignore-scripts
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
 
 popd
 
 # Cleanup after install
 ynh_safe_rm "$install_dir/.cache"
-ynh_safe_rm "$install_dir/.npm/_cacache"
+ynh_safe_rm "$install_dir/.npm/_cache"
 ynh_safe_rm "$install_dir/node_modules"
 ynh_safe_rm "$install_dir/frontend/node_modules"
+ynh_safe_rm "$install_dir/frontend/assets"
+ynh_safe_rm "$install_dir/docs"
+ynh_safe_rm "$install_dir/.do"
+ynh_safe_rm "$install_dir/.husky"
+ynh_safe_rm "$install_dir/.vscode"
+ynh_safe_rm "$install_dir/.hdb"
+ynh_safe_rm "$install_dir/docker"
+ynh_safe_rm "$install_dir/.github"
+ynh_safe_rm "$install_dir/cypress-tests"
 
 chmod 750 "$install_dir"
 chmod -R o-rwx "$install_dir"

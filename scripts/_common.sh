@@ -4,5 +4,5 @@
 # COMMON VARIABLES AND CUSTOM HELPERS
 #=================================================
 
-nodejs_version="18.18.2"
-NPM_VERSION="9.8.1"
+nodejs_version="22.15.1"
+NPM_VERSION="10.9.2"
