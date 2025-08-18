@@ -90,8 +90,13 @@ ynh_script_progression "Building ToolJet database..."
 
 pushd $install_dir
 	
+	export PG_DB=$db_name
+	export PG_USER=$db_user
+	export PG_HOST=localhost
+	export PG_PASS=$db_pwd
+
 	# Build the database once the configuration is set
-	ynh_hide_warnings ynh_exec_as_app npm run db:migrate
+	ynh_hide_warnings ynh_exec_as_app npm run db:migrate:prod
 
 	# Cleanup unneeded files
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
