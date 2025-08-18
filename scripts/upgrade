@@ -49,6 +49,7 @@ pushd $install_dir
 	ynh_script_progression "Building server..."
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix server install
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm install copyfiles --save
+	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm install @nestjs/cli --save
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=4096" npm --prefix server run build
 	ynh_hide_warnings ynh_exec_as_app npm --prefix server prune --production
 
