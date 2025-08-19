@@ -73,7 +73,7 @@ ynh_config_add --template=".env.example" --destination="$install_dir/.env"
 ynh_script_progression "Creating a $app database..."
 
 #Create tooljet database
-ynh_psql_db_shell <<< "CREATE DATABASE $app_db OWNER $app;"
+ynh_psql_db_shell <<< "CREATE DATABASE ${app}_db OWNER $app;"
 
 #=================================================
 # BUILD THE DATABASE
