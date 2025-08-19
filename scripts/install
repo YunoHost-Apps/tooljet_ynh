@@ -91,7 +91,7 @@ popd
 
 # Cleanup after install
 ynh_safe_rm "$install_dir/.cache"
-ynh_safe_rm "$install_dir/.npm/_cache"
+ynh_safe_rm "$install_dir/.npm/cache"
 ynh_safe_rm "$install_dir/node_modules"
 ynh_safe_rm "$install_dir/frontend/node_modules"
 ynh_safe_rm "$install_dir/frontend/assets"
