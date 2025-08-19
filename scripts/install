@@ -72,17 +72,10 @@ ynh_script_progression "Building ToolJet database..."
 
 pushd $install_dir
 	
-	DATABASE_URL="postgres://$db_user:$db_pwd@localhost:5432/$db_name?sslmode=disable"
-
-	export TOOLJET_DB="$db_name"
-	export TOOLJET_DB_USER="$db_user"
-	export TOOLJET_DB_HOST="localhost"
-	export TOOLJET_DB_PASS="$db_pwd"
-
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm install install dotenv@10.0.0 joi@17.4.1 --save
+	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm install install dotenv@10.0.0 joi@17.4.1 copyfiles @nestjs/cli --save
 
 	# Build the database once the configuration is set
-	ynh_hide_warnings ynh_exec_as_app TOOLJET_DB="$db_name" TOOLJET_DB_USER="$db_user" TOOLJET_DB_HOST="localhost" TOOLJET_DB_PASS="$db_pwd" npm run db:migrate:prod
+	ynh_hide_warnings ynh_exec_as_app TOOLJET_DB="$db_name" TOOLJET_DB_USER="$db_user" TOOLJET_DB_HOST="localhost" TOOLJET_DB_PASS="$db_pwd" npm run db:migrate
 
 	# Cleanup unneeded files
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
