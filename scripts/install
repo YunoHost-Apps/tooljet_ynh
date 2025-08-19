@@ -41,9 +41,6 @@ pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=4096" npm --prefix server run build
 	ynh_hide_warnings ynh_exec_as_app npm --prefix server prune --production
 
-	ynh_script_progression "Cleanup unneeded files..."
-	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
-
 popd
 
 chmod 750 "$install_dir"
@@ -80,6 +77,8 @@ pushd $install_dir
 	export PG_USER="$db_user"
 	export PG_HOST="localhost"
 	export PG_PASS="$db_pwd"
+	
+	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm install install dotenv@10.0.0 joi@17.4.1 --save
 
 	# Build the database once the configuration is set
 	ynh_hide_warnings ynh_exec_as_app npm run db:migrate:prod
