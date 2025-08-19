@@ -24,12 +24,6 @@ ynh_script_progression "Upgrading source files..."
 
 ynh_setup_source --dest_dir="$install_dir"
 
-# Cleanup after install
-ynh_safe_rm "$install_dir/.cache"
-ynh_safe_rm "$install_dir/.npm/_cacache"
-ynh_safe_rm "$install_dir/node_modules"
-ynh_safe_rm "$install_dir/frontend/node_modules"
-
 #=================================================
 # BUILD THE APPLICATION
 #=================================================
@@ -107,7 +101,6 @@ ynh_safe_rm "$install_dir/.hdb"
 ynh_safe_rm "$install_dir/docker"
 ynh_safe_rm "$install_dir/.github"
 ynh_safe_rm "$install_dir/cypress-tests"
-
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
