@@ -50,8 +50,7 @@ pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix server install
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm install copyfiles --save
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm install @nestjs/cli --save
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=4096" npm --prefix server run build
-	ynh_hide_warnings ynh_exec_as_app npm --prefix server prune --production
+	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=4096" DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable" npm --prefix server run build
 
 popd
 
@@ -77,23 +76,26 @@ ynh_script_progression "Upgrading ToolJet database..."
 
 pushd $install_dir
 	
-	export PG_DB="$db_name"
-	export PG_USER="$db_user"
-	export PG_HOST="localhost"
-	export PG_PASS="$db_pwd"
-	
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm install install dotenv@10.0.0 joi@17.4.1 --save
+	DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable"
+
+	export PG_DB=$db_name
+	export PG_USER=$db_user
+	export PG_HOST=localhost
+	export PG_PASS=$db_pwd
+
+	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix server install dotenv@10.0.0 joi@17.4.1 --save
 
 	# Build the database once the configuration is set
-	ynh_hide_warnings ynh_exec_as_app PG_DB="$db_name" PG_USER="$db_user" PG_HOST="localhost" PG_PASS="$db_pwd" npm run db:migrate:prod
+	ynh_hide_warnings ynh_exec_as_app DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable" npm --prefix server run db:migrate
 
 	# Cleanup unneeded files
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
+	ynh_hide_warnings ynh_exec_as_app npm --prefix server prune --production
 popd
 
 # Cleanup after install
 ynh_safe_rm "$install_dir/.cache"
-ynh_safe_rm "$install_dir/.npm/_cache"
+ynh_safe_rm "$install_dir/.npm/cache"
 ynh_safe_rm "$install_dir/node_modules"
 ynh_safe_rm "$install_dir/frontend/node_modules"
 ynh_safe_rm "$install_dir/frontend/assets"
@@ -105,6 +107,7 @@ ynh_safe_rm "$install_dir/.hdb"
 ynh_safe_rm "$install_dir/docker"
 ynh_safe_rm "$install_dir/.github"
 ynh_safe_rm "$install_dir/cypress-tests"
+
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
