@@ -82,7 +82,7 @@ pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix server install dotenv@10.0.0 joi@17.4.1 --save
 
 	# Build the database once the configuration is set
-	ynh_hide_warnings ynh_exec_as_app DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable" npm --prefix server run db:migrate:prod
+	ynh_hide_warnings ynh_exec_as_app DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable" npm --prefix server run db:migrate
 
 	# Cleanup unneeded files
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
