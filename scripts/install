@@ -38,7 +38,7 @@ pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix server install
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm install copyfiles --save
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm install @nestjs/cli --save
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=4096" npm --prefix server run build
+	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=4096" DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable" npm --prefix server run build
 
 popd
 
@@ -72,7 +72,7 @@ ynh_script_progression "Building ToolJet database..."
 
 pushd $install_dir
 	
-	DATABASE_URL="postgres://$db_user:$db_pwd@localhost:5432/$db_name?sslmode=disable"
+	DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable"
 
 	export TOOLJET_DB="$db_name"
 	export TOOLJET_DB_USER="$db_user"
