@@ -84,6 +84,12 @@ ynh_script_progression "Building ToolJet database..."
 
 pushd $install_dir/server
 
+    export NODE_ENV=production
+    export TOOLJET_DB_USER=$tooljet_db_user
+    export TOOLJET_DB_PASS=_tooljet_db_pwd
+    export TOOLJET_DB=$tooljet_db_name
+    export TOOLJET_DB_HOST=localhost
+
 	DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable"
 
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm install dotenv@10.0.0 joi@17.4.1 --save
