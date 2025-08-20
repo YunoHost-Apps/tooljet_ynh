@@ -38,17 +38,14 @@ ynh_script_progression "Building ToolJet:"
 pushd $install_dir
 	ynh_script_progression "Building plugins..."
 
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix plugins install
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3072" npm --prefix plugins run build
-	ynh_hide_warnings ynh_exec_as_app npm --prefix plugins prune --omit=dev
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix plugins install
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3072" npm --prefix plugins run build
 
 	ynh_script_progression "Building frontend..."
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix frontend install
-	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3072" npm --prefix frontend run build --omit=dev
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3072" npm --prefix frontend run build
 
-popd
 
-pushd $install_dir/
     ynh_script_progression "Building server..."
 
     export TOOLJET_DB_USER=$tooljet_db_user
