@@ -61,7 +61,7 @@ pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server run build
 
 
-    ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server run copyfiles -u 1 src/migration-helpers/*.ts dist/src/migration-helpers/
+    cp -R $install_dir/server/src/migration-helpers/* $install_dir/server/dist/src/migration-helpers/
 
 
 	# Build the database once the configuration is set
