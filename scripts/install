@@ -61,7 +61,7 @@ pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server run build
 
 
-    tsc -p tsconfig.json $install_dir/server/src/migration-helpers
+    ynh_hide_warnings ynh_exec_as_app npx tsc -p server/tsconfig.json $install_dir/server/src/migration-helpers
 
 
 	# Build the database once the configuration is set
