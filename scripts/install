@@ -60,6 +60,10 @@ pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install @nestjs/cli --save
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server run build
 
+
+    ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server run copyfiles -u 1 src/migration-helpers/*.ts dist/src/migration-helpers/
+
+
 	# Build the database once the configuration is set
 	ynh_hide_warnings ynh_exec_as_app DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable" TOOLJET_DB=$tooljet_db_name TOOLJET_DB_USER=$tooljet_db_user TOOLJET_DB_HOST=localhost TOOLJET_DB_PASS=$tooljet_db_pwd npm --prefix server run db:migrate:prod
 
