@@ -21,8 +21,12 @@ ynh_config_remove_nginx
 
 ynh_nodejs_remove
 
-#Drop tooljet database
-ynh_psql_db_shell <<< "DROP DATABASE $app-db;"
+#=================================================
+# REMOVE TOOLJET ADDITIONAL DATABASE
+#=================================================
+ynh_script_progression "Removing Additional $app database..."
+
+ynh_psql_remove_db --db_user=${app}_db_user --db_name=${app}_db_name
 
 #=================================================
 # END OF SCRIPT
