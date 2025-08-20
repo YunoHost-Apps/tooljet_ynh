@@ -26,7 +26,7 @@ ynh_nodejs_remove
 #=================================================
 ynh_script_progression "Removing Additional $app database..."
 
-ynh_psql_drop_db && ynh_psql_drop_user --db_user=${app}_db_user --db_name=${app}_db_name
+ynh_psql_drop_db --db_name=${app}_db_name && ynh_psql_drop_user --db_user=${app}_db_user
 
 #=================================================
 # END OF SCRIPT
