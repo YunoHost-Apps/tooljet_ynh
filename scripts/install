@@ -18,6 +18,19 @@ ynh_script_progression "Setting up source files..."
 ynh_setup_source --dest_dir="$install_dir"
 
 #=================================================
+# CREATE AN ADDITIONAL TOOLJET DATABASE
+#=================================================
+
+tooljet_db_user=${app}_db_user
+tooljet_db_name=${app}_db_name
+tooljet_db_pwd=$(ynh_string_random)
+ynh_psql_create_user "${app}_db_user" "${app}_db_pwd"
+ynh_psql_create_db "${app}_db_name" "${app}db_user"
+ynh_app_setting_set --key=tooljet_db_user --value=${app}_db_user
+ynh_app_setting_set --key=tooljet_db_name --value=${app}_db_name
+ynh_app_setting_set --key=tooljet_db_pwd --value=${app}_db_pwd
+
+#=================================================
 # BUILD THE APPLICATION
 #=================================================
 ynh_script_progression "Building ToolJet:"
@@ -63,20 +76,6 @@ secret_key_base=$(ynh_string_random --length=64 | xxd -p | head -n1 | cut -c 1-6
 ynh_app_setting_set --key=secret_key_base --value="$secret_key_base"
 
 ynh_config_add --template=".env.example" --destination="$install_dir/.env"
-
-
-#=================================================
-# CREATE AN ADDITIONAL TOOLJET DATABASE
-#=================================================
-
-tooljet_db_user=${app}_db_user
-tooljet_db_name=${app}_db_name
-tooljet_db_pwd=$(ynh_string_random)
-ynh_psql_create_user "${app}_db_user" "${app}_db_pwd"
-ynh_psql_create_db "${app}_db_name" "${app}db_user"
-ynh_app_setting_set --key=tooljet_db_user --value=${app}_db_user
-ynh_app_setting_set --key=tooljet_db_name --value=${app}_db_name
-ynh_app_setting_set --key=tooljet_db_pwd --value=${app}_db_pwd
 
 #=================================================
 # BUILD THE DATABASE
