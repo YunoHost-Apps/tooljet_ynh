@@ -52,19 +52,19 @@ pushd $install_dir/
     ynh_script_progression "Building server..."
 
     export TOOLJET_DB_USER=$tooljet_db_user
-    export TOOLJET_DB_PASS=_tooljet_db_pwd
+    export TOOLJET_DB_PASS=$tooljet_db_pwd
     export TOOLJET_DB=$tooljet_db_name
     export TOOLJET_DB_HOST=localhost
     export DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable"
 
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install
-    ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm install dotenv@10.0.0 joi@17.4.1 --save
-	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm install copyfiles --save
-	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm install @nestjs/cli --save
-	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3072" npm --prefix server run build
+    ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install dotenv@10.0.0 joi@17.4.1 --save
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install copyfiles --save
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install @nestjs/cli --save
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server run build
 
 	# Build the database once the configuration is set
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable" TOOLJET_DB=$tooljet_db_name TOOLJET_DB_USER=$tooljet_db_user TOOLJET_DB_HOST=localhost TOOLJET_DB_PASS=$tooljet_db_pwd npm --prefix server run db:migrate:prod
+	ynh_hide_warnings ynh_exec_as_app DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable" TOOLJET_DB=$tooljet_db_name TOOLJET_DB_USER=$tooljet_db_user TOOLJET_DB_HOST=localhost TOOLJET_DB_PASS=$tooljet_db_pwd npm --prefix server run db:migrate:prod
 
 	# Cleanup unneeded files
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
