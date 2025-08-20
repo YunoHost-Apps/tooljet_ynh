@@ -25,7 +25,7 @@ tooljet_db_user=${app}_db_user
 tooljet_db_name=${app}_db_name
 tooljet_db_pwd=$(ynh_string_random)
 ynh_psql_create_user "$tooljet_db_user" "$tooljet_db_pwd"
-ynh_psql_create_db "$tolljet_db_name" "$tooljet_db_user"
+ynh_psql_create_db "$tooljet_db_name" "$tooljet_db_user"
 ynh_app_setting_set --key=tooljet_db_user --value=$tooljet_db_user
 ynh_app_setting_set --key=tooljet_db_name --value=$tooljet_db_name
 ynh_app_setting_set --key=tooljet_db_pwd --value=$tooljet_db_pwd
