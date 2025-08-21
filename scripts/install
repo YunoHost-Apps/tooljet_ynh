@@ -23,7 +23,7 @@ ynh_script_progression "Setting up source files..."
 
 ynh_setup_source --dest_dir="$install_dir"
 
-ynh_replace --match="[    "target": "es2019",]" --replace="[    "target": "es2019",\n	"esModuleInterop": true,]" --file="$install_dir/server/tsconfig.json"
+jq '.compilerOptions.esModuleInterop = true' tsconfig.json > tsconfig.tmp.json && mv tsconfig.tmp.json tsconfig.json
 
 cat $install_dir/server/tsconfig.json
 
