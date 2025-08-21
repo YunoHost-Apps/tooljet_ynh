@@ -64,7 +64,17 @@ pushd $install_dir
     ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install dotenv@10.0.0 joi@17.4.1 --save
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install copyfiles --save
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install @nestjs/cli --save
+
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server node_modules/.bin/tsc --project /var/www/tooljet/server/tsconfig.json --esModuleInterop true
+
+	cp -p server/dist/data-migrations/1650485473528-PopulateSSOConfigs.js server/1650485473528-PopulateSSOConfigs.js
+
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server run build
+
+	rm server/dist/data-migrations/1650485473528-PopulateSSOConfigs.js
+	mv server/1650485473528-PopulateSSOConfigs.js server/dist/data-migrations/1650485473528-PopulateSSOConfigs.js
+
+
 popd
 
 #=================================================
