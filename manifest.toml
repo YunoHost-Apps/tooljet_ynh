@@ -41,8 +41,8 @@ ram.runtime = "300M"
     [resources.sources]
 
         [resources.sources.main]
-        url = "https://github.com/ToolJet/ToolJet/archive/refs/tags/v3.16.9-lts.tar.gz"
-        sha256 = "ec2dc0274d0fc41cd86bf96619dfae2b809aa513d168815cf27fd544fa8cdef3"
+        url = "https://github.com/ToolJet/ToolJet/archive/refs/tags/v3.16.13-lts.tar.gz"
+        sha256 = "09fff9f7bbcdc4396e0e93b599c8546bc8238c65b1fc4c7cd235d8ac963ef5f5"
 
         autoupdate.strategy = "latest_github_release"
 
