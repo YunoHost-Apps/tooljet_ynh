@@ -23,10 +23,6 @@ ynh_script_progression "Setting up source files..."
 
 ynh_setup_source --dest_dir="$install_dir"
 
-jq '.compilerOptions.esModuleInterop = true' $install_dir/server/tsconfig.json > $install_dir/server/tsconfig.tmp.json && mv $install_dir/server/tsconfig.tmp.json $install_dir/servertsconfig.json
-
-cat $install_dir/server/tsconfig.json
-
 #=================================================
 # CREATE AN ADDITIONAL TOOLJET DATABASE
 #=================================================
@@ -69,7 +65,9 @@ pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install copyfiles --save
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install @nestjs/cli --save
 
-	ynh_replace --match="[    "target": "es2019",]" --replace="[    "target": "es2019",\n	"esModuleInterop": true,]" --file="$install_dir/server/tsconfig.json"
+	rm "$install_dir"/server/tsconfig.json
+	ynh_config_add --template="tsconfig.json" --destination="$install_dir/server/tsconfig.json"
+	chown $app:$app "$install_dir"/server/tsconfig.json
 
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server run build
 
