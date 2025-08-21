@@ -32,30 +32,28 @@ ynh_script_progression "Building ToolJet..."
 pushd $install_dir
 	ynh_script_progression "Building plugins..."
 
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix plugins install
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3072" npm --prefix plugins run build
-	ynh_hide_warnings ynh_exec_as_app npm --prefix plugins prune --production
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix plugins install
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3072" npm --prefix plugins run build
 
 	ynh_script_progression "Building frontend..."
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix frontend install
-	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3072" npm --prefix frontend run build --production
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3072" npm --prefix frontend run build
 
-	ynh_script_progression "Building server..."
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix server install
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm install copyfiles --save
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm install @nestjs/cli --save
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3072" DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable" npm --prefix server run build
 
+    ynh_script_progression "Building server..."
+
+    export TOOLJET_DB_USER=$tooljet_db_user
+    export TOOLJET_DB_PASS=$tooljet_db_pwd
+    export TOOLJET_DB=$tooljet_db_name
+    export TOOLJET_DB_HOST=localhost
+    export DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable"
+
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install
+    ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install dotenv@10.0.0 joi@17.4.1 --save
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install copyfiles --save
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install @nestjs/cli --save
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server run build
 popd
-
-chmod 750 "$install_dir"
-chmod -R o-rwx "$install_dir"
-chown -R $app:$app "$install_dir"
-chown $app:www-data -R "$install_dir/frontend/build"
-chown $app:www-data "$install_dir/frontend/build"
-chown $app:www-data "$install_dir/frontend"
-chown $app:www-data "$install_dir"
-
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
@@ -69,22 +67,12 @@ ynh_config_add --template=".env.example" --destination="$install_dir/.env"
 ynh_script_progression "Upgrading ToolJet database..."
 
 pushd $install_dir
-	
-	DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable"
-
-	export PG_DB=$db_name
-	export PG_USER=$db_user
-	export PG_HOST=localhost
-	export PG_PASS=$db_pwd
-
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix server install dotenv@10.0.0 joi@17.4.1 --save
-
-	# Build the database once the configuration is set
-	ynh_hide_warnings ynh_exec_as_app DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable" npm --prefix server run db:migrate
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 node server/node_modules/typeorm/cli.js migration:run --dataSource server/dist/src/migration-helpers/db-migrations-datasource.js
+	ynh_hide_warnings ynh_exec_as_app DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable" TOOLJET_DB=$tooljet_db_name TOOLJET_DB_USER=$tooljet_db_user TOOLJET_DB_HOST=localhost TOOLJET_DB_PASS=$tooljet_db_pwd npm --prefix server run db:migrate:data:prod
 
 	# Cleanup unneeded files
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
-	ynh_hide_warnings ynh_exec_as_app npm --prefix server prune --production
+	ynh_hide_warnings ynh_exec_as_app npm --prefix server prune --omit=dev
 popd
 
 # Cleanup after install
@@ -101,6 +89,14 @@ ynh_safe_rm "$install_dir/.hdb"
 ynh_safe_rm "$install_dir/docker"
 ynh_safe_rm "$install_dir/.github"
 ynh_safe_rm "$install_dir/cypress-tests"
+
+chmod 750 "$install_dir"
+chmod -R o-rwx "$install_dir"
+chown -R $app:$app "$install_dir"
+chown $app:www-data -R "$install_dir/frontend/build"
+chown $app:www-data "$install_dir/frontend/build"
+chown $app:www-data "$install_dir/frontend"
+chown $app:www-data "$install_dir"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
