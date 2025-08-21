@@ -68,7 +68,7 @@ ynh_script_progression "Upgrading ToolJet database..."
 
 pushd $install_dir
 	#fix a migration issue
-	cp "$install_dir"/server/src/modules/ability/service.ts "$install_dir"/server/src/modules/ability/service
+	cp -p "$install_dir"/server/src/modules/ability/service.ts "$install_dir"/server/src/modules/ability/service
 
 	ynh_hide_warnings ynh_exec_as_app DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable" TOOLJET_DB=$tooljet_db_name TOOLJET_DB_USER=$tooljet_db_user TOOLJET_DB_HOST=localhost TOOLJET_DB_PASS=$tooljet_db_pwd node server/node_modules/typeorm/cli.js migration:run --dataSource server/dist/src/migration-helpers/db-migrations-datasource.js
 	ynh_hide_warnings ynh_exec_as_app DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable" TOOLJET_DB=$tooljet_db_name TOOLJET_DB_USER=$tooljet_db_user TOOLJET_DB_HOST=localhost TOOLJET_DB_PASS=$tooljet_db_pwd npm --prefix server run db:migrate:data:prod
