@@ -23,7 +23,7 @@ ynh_script_progression "Setting up source files..."
 
 ynh_setup_source --dest_dir="$install_dir"
 
-jq '.compilerOptions.esModuleInterop = true' tsconfig.json > tsconfig.tmp.json && mv tsconfig.tmp.json tsconfig.json
+jq '.compilerOptions.esModuleInterop = true' $install_dir/server/tsconfig.json > $install_dir/server/tsconfig.tmp.json && mv $install_dir/server/tsconfig.tmp.json $install_dir/servertsconfig.json
 
 cat $install_dir/server/tsconfig.json
 
