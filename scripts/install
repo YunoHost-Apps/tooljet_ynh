@@ -65,11 +65,12 @@ pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install copyfiles --save
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install @nestjs/cli --save
 
-	rm "$install_dir"/server/tsconfig.json
-	ynh_config_add --template="tsconfig.json" --destination="$install_dir/server/tsconfig.json"
-	chown $app:$app "$install_dir"/server/tsconfig.json
+	#rm "$install_dir"/server/tsconfig.json
+	#ynh_config_add --template="tsconfig.json" --destination="$install_dir/server/tsconfig.json"
+	#chown $app:$app "$install_dir"/server/tsconfig.json
 
-	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server run build
+ 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 server/node_modules/.bin/tsc --project server/tsconfig.json --esModuleInterop true
+	#ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server run build
 
 
 popd
