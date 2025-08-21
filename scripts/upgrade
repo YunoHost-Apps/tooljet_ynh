@@ -67,7 +67,7 @@ ynh_config_add --template=".env.example" --destination="$install_dir/.env"
 ynh_script_progression "Upgrading ToolJet database..."
 
 pushd $install_dir
-	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 node server/node_modules/typeorm/cli.js migration:run --dataSource server/dist/src/migration-helpers/db-migrations-datasource.js
+	ynh_hide_warnings ynh_exec_as_app DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable" TOOLJET_DB=$tooljet_db_name TOOLJET_DB_USER=$tooljet_db_user TOOLJET_DB_HOST=localhost TOOLJET_DB_PASS=$tooljet_db_pwd node server/node_modules/typeorm/cli.js migration:run --dataSource server/dist/src/migration-helpers/db-migrations-datasource.js
 	ynh_hide_warnings ynh_exec_as_app DATABASE_URL="postgres://"$db_user":"$db_pwd"@localhost:5432/"$db_name"?sslmode=disable" TOOLJET_DB=$tooljet_db_name TOOLJET_DB_USER=$tooljet_db_user TOOLJET_DB_HOST=localhost TOOLJET_DB_PASS=$tooljet_db_pwd npm --prefix server run db:migrate:data:prod
 
 	# Cleanup unneeded files
