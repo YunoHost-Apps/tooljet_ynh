@@ -7,9 +7,9 @@ Type=simple
 User=__APP__
 Group=__APP__
 WorkingDirectory=__INSTALL_DIR__/
-Environment="__YNH_NODE_LOAD_PATH__"
+Environment="PATH=__PATH_WITH_NODEJS__"
 EnvironmentFile=__INSTALL_DIR__/.env
-ExecStart=__YNH_NPM__ run start:prod
+ExecStart=__NODEJS_DIR__/npm run start:prod
 StandardOutput=journal
 StandardError=inherit
 

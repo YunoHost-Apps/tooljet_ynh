@@ -18,6 +18,9 @@ Open-source low-code framework for building React-based web applications and int
 <a href="https://github.com/YunoHost-Apps/tooljet_ynh/issues"><img height="100px" src="https://github.com/YunoHost/yunohost-artwork/raw/refs/heads/main/badges/neopossum-badges/badge_report_an_issue.svg"/></a>
 </div>
 
+## Screenshots
+![Screenshot of ToolJet](./doc/screenshots/example.png)
+
 ## 📦 Developer info
 
 [![Automatic tests level](https://apps.yunohost.org/badge/cilevel/tooljet)](https://ci-apps.yunohost.org/ci/apps/tooljet/)
