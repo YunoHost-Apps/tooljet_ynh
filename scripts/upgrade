@@ -11,13 +11,6 @@ ynh_script_progression "Stopping $app's systemd service..."
 ynh_systemctl --service=$app --action="stop"
 
 #=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-ynh_script_progression "Installing dependencies..."
-
-ynh_nodejs_install
-
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Upgrading source files..."
@@ -61,9 +54,18 @@ popd
 
 # Cleanup after install
 ynh_safe_rm "$install_dir/.cache"
-ynh_safe_rm "$install_dir/.npm/_cacache"
+ynh_safe_rm "$install_dir/.npm/cache"
 ynh_safe_rm "$install_dir/node_modules"
 ynh_safe_rm "$install_dir/frontend/node_modules"
+ynh_safe_rm "$install_dir/frontend/assets"
+ynh_safe_rm "$install_dir/docs"
+ynh_safe_rm "$install_dir/.do"
+ynh_safe_rm "$install_dir/.husky"
+ynh_safe_rm "$install_dir/.vscode"
+ynh_safe_rm "$install_dir/.hdb"
+ynh_safe_rm "$install_dir/docker"
+ynh_safe_rm "$install_dir/.github"
+ynh_safe_rm "$install_dir/cypress-tests"
 
 chmod 750 "$install_dir"
 chmod -R o-rwx "$install_dir"
