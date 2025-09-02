@@ -16,7 +16,7 @@ code = "https://github.com/ToolJet/ToolJet"
 cpe = "cpe:2.3:a:tooljet:tooljet"
 
 [integration]
-yunohost = ">= 12.0.9"
+yunohost = ">= 12.1.17"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
@@ -63,3 +63,6 @@ ram.runtime = "300M"
 
     [resources.database]
     type = "postgresql"
+
+    [resources.nodejs]
+    version = "18"
