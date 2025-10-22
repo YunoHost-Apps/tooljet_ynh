@@ -21,22 +21,23 @@ pushd $install_dir
 
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix plugins install
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=4096" npm --prefix plugins run build
-	ynh_hide_warnings ynh_exec_as_app npm --prefix plugins prune --production
+	ynh_hide_warnings ynh_exec_as_app npm --prefix plugins prune --omit=dev
 
 	ynh_script_progression "Building frontend..."
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix frontend install
 	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=4096" npm --prefix frontend run build --production
-	ynh_hide_warnings ynh_exec_as_app npm --prefix frontend prune --production
+	ynh_hide_warnings ynh_exec_as_app npm --prefix frontend prune --omit=dev
 
 	ynh_script_progression "Building server..."
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix server install
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix server installinstall --save-dev copyfiles
+	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npx update-browserslist-db@latest
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=4096" npm --prefix server run build
-	ynh_hide_warnings ynh_exec_as_app npm --prefix plugins prune --production
+	ynh_hide_warnings ynh_exec_as_app npm --prefix plugins prune --omit=dev
 
 	ynh_script_progression "Cleanup unneeded files..."
-	ynh_hide_warnings ynh_exec_as_app npm prune --production
-	ynh_hide_warnings ynh_exec_as_app npm install --production --ignore-scripts
+	ynh_hide_warnings ynh_exec_as_app npm prune --omit=dev
+	ynh_hide_warnings ynh_exec_as_app npm install --omit=dev --ignore-scripts
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
 
 popd
