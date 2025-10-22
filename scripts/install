@@ -31,7 +31,7 @@ pushd $install_dir
 	ynh_script_progression "Building server..."
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix server install
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix server install --save-dev copyfiles
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npx update-browserslist-db@latest
+	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npx update-browserslist-db@latest --yes
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=4096" npm --prefix server run build
 	ynh_hide_warnings ynh_exec_as_app npm --prefix plugins prune --omit=dev
 
