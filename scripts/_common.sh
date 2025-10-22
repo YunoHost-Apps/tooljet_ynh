@@ -4,4 +4,4 @@
 # COMMON VARIABLES AND CUSTOM HELPERS
 #=================================================
 
-NPM_VERSION="9.8.1"
+#NPM_VERSION="9.8.1"
