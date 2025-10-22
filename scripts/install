@@ -19,8 +19,6 @@ ynh_script_progression "Building ToolJet:"
 pushd $install_dir
 	ynh_script_progression "Building plugins..."
 
-	npx browserslist@latest --update-db --yes
-
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix plugins install
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=4096" npm --prefix plugins run build
 	ynh_hide_warnings ynh_exec_as_app npm --prefix plugins prune --omit=dev
