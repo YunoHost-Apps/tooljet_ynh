@@ -19,7 +19,7 @@ ynh_script_progression "Building ToolJet:"
 pushd $install_dir
 	ynh_script_progression "Building plugins..."
 
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix server install --save-dev update-browserslist-db
+	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix server install update-browserslist-db@latest -g
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npx update-browserslist-db@latest --yes
 
 	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix plugins install
