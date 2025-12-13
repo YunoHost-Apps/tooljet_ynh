@@ -4,7 +4,7 @@ id = "tooljet"
 name = "ToolJet"
 description.en = "Framework for building React-based Web applications and internal tools"
 description.fr = "Construction d'applications Web basées sur React et d'outils internes"
-version = "2.67.1~ynh1"
+version = "3.15.1~ynh1"
 
 maintainers = ["Tagadda"]
 
@@ -41,8 +41,8 @@ ram.runtime = "300M"
     [resources.sources]
 
         [resources.sources.main]
-        url = "https://github.com/ToolJet/ToolJet/archive/refs/tags/v2.67.1.tar.gz"
-        sha256 = "38f1c2d34fe5a98a7d6bf4e7f50d5c684ad5ebc64d4fa360c49ae48f86d00fec"
+        url = "https://github.com/ToolJet/ToolJet/archive/refs/tags/v3.15.1.tar.gz"
+        sha256 = "dd9dcb031b75546a48b6e62e50eb233f5ead4109847fab756c8d4edaacfcc147"
 
         autoupdate.strategy = "latest_github_release"
 
@@ -65,5 +65,5 @@ ram.runtime = "300M"
     type = "postgresql"
 
     [resources.nodejs]
-    version = "18.18.2"
+    version = "22.15.1"
 

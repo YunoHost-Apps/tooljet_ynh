@@ -29,15 +29,15 @@ pushd $install_dir
 	ynh_hide_warnings ynh_exec_as_app npm --prefix frontend prune --production
 
 	ynh_script_progression "Building server..."
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 npm --prefix server install
-	ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=4096" npm --prefix server run build
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 npm --prefix server install copyfiles
+	ynh_hide_warnings ynh_exec_as_app CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=4096" PG_DB=$db_name PG_USER=$db_user PG_HOST=localhost PG_PASS=$db_pwd npm --prefix server run build
 	ynh_hide_warnings ynh_exec_as_app npm --prefix plugins prune --production
 
 	ynh_script_progression "Cleanup unneeded files..."
 	ynh_hide_warnings ynh_exec_as_app npm prune --production
 	ynh_hide_warnings ynh_exec_as_app npm install --production --ignore-scripts
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
-
 popd
 
 # Cleanup after install
@@ -86,7 +86,7 @@ ynh_script_progression "Building ToolJet database..."
 pushd $install_dir
 	
 	# Build the database once the configuration is set
-	ynh_hide_warnings ynh_exec_as_app npm run db:migrate
+	ynh_hide_warnings ynh_exec_as_app PG_DB=$db_name PG_USER=$db_user PG_HOST=localhost PG_PASS=$db_pwd npm run db:migrate
 
 	# Cleanup unneeded files
 	ynh_hide_warnings ynh_exec_as_app npm cache clean --force
