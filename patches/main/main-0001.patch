@@ -1,0 +1,31 @@
+From c3a54862a7d71e4aeda538d5303c1962760b653b Mon Sep 17 00:00:00 2001
+From: orhtej2 <2871798+orhtej2@users.noreply.github.com>
+Date: Thu, 11 Dec 2025 11:56:26 +0100
+Subject: [PATCH] Skip tooljet db migration
+
+---
+ ...1718542399701-UpdateInternalTablesConfigurationsColumn.ts | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/server/data-migrations/1718542399701-UpdateInternalTablesConfigurationsColumn.ts b/server/data-migrations/1718542399701-UpdateInternalTablesConfigurationsColumn.ts
+index d0edac3e4..29d50effe 100644
+--- a/server/data-migrations/1718542399701-UpdateInternalTablesConfigurationsColumn.ts
++++ b/server/data-migrations/1718542399701-UpdateInternalTablesConfigurationsColumn.ts
+@@ -2,9 +2,14 @@ import { tooljetDbOrmconfig } from 'ormconfig';
+ import { MigrationInterface, QueryRunner, EntityManager, DataSource } from 'typeorm';
+ import { v4 as uuidv4 } from 'uuid';
+ import { MigrationProgress, processDataInBatches } from 'src/helpers/utils.helper';
++import { getEnvVars } from 'scripts/database-config-utils';
+ 
+ export class UpdateInternalTablesConfigurationsColumn1718542399701 implements MigrationInterface {
+   public async up(queryRunner: QueryRunner): Promise<void> {
++    const envData = getEnvVars();
++    const isToolJetDBEnabled = envData.ENABLE_TOOLJET_DB;
++
++    if (isToolJetDBEnabled !== 'true') return;
+     const tooljetDbConnection = new DataSource({
+       ...tooljetDbOrmconfig,
+       name: 'tooljetDbMigration',
+-- 
+2.43.0
+
